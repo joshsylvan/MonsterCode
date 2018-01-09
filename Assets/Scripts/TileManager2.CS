@@ -5,7 +5,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TileManager : MonoBehaviour
+public class TileManager2 : MonoBehaviour
 {
 	private GameObject rootNode;
 	private GameObject selectedTile;
@@ -56,7 +56,7 @@ public class TileManager : MonoBehaviour
 				{
 					this.goalPosition = newPos + this.tileOffset;
 					this.isMoving = false;
-					this.tileToLerp = this.selectedTile
+					this.tileToLerp = this.selectedTile;
 				}
 				else
 				{
@@ -78,7 +78,7 @@ public class TileManager : MonoBehaviour
 
 		if (this.isMoving)
 		{
-			Vector2 newPos = Vector2.Lerp()
+//			Vector2 newPos = Vector2.Lerp()
 		}
 	}
 
