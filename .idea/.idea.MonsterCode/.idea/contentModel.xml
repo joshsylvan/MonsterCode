@@ -16,8 +16,8 @@
           <e p="CameraMenuMovement.cs" t="Include" />
           <e p="MonsterCreator.cs" t="Include" />
           <e p="SnapControl.cs" t="Include" />
-          <e p="TileManager.cs" t="Include" />
-          <e p="TileManager2.cs" t="Include" />
+          <e p="SnapManager.cs" t="Include" />
+          <e p="TileManagement.cs" t="Include" />
           <e p="TileStats.cs" t="Include" />
         </e>
       </e>

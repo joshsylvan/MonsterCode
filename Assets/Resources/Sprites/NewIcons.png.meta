@@ -1,9 +1,17 @@
 fileFormatVersion: 2
 guid: fd5060477275145f7b8a78b8d9b91202
-timeCreated: 1515511093
+timeCreated: 1515514595
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: s_startTile
+    21300002: s_jumpTile
+    21300004: s_defendTile
+    21300006: s_fightTile
+    21300008: s_snapTile
+    21300010: s_rightTile
+    21300012: s_leftTile
+    21300014: s_specialTile
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -98,7 +106,119 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: s_startTile
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 99
+        width: 33
+        height: 33
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: s_jumpTile
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 99
+        width: 33
+        height: 33
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: s_defendTile
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 99
+        width: 33
+        height: 33
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: s_fightTile
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 99
+        width: 33
+        height: 33
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: s_snapTile
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 66
+        width: 33
+        height: 33
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: s_rightTile
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 66
+        width: 33
+        height: 33
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: s_leftTile
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 66
+        width: 33
+        height: 33
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: s_specialTile
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 66
+        width: 33
+        height: 33
+      alignment: 9
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
     outline: []
     physicsShape: []
   spritePackingTag: 

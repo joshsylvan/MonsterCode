@@ -1,28 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class TileManager2 : MonoBehaviour
-{
+public class TileManagement : MonoBehaviour {
+
 	private GameObject rootNode;
 	private GameObject selectedTile;
 	private Vector2 tileOffset;
-	private float tileSizeOffset = .3f;
+	private float tileSizeOffset = 3.3f;
 
 	private List<GameObject> connectedTiles;
-
-	private Vector2 goalPosition;
-	private float lerpSpeed = 1f;
-	private bool isMoving = false;
-	private GameObject tileToLerp;
 	
 	// Use this for initialization
 	void Start ()
 	{
-		this.rootNode = this.transform.GetChild(0).gameObject;
+		rootNode = transform.GetChild(0).gameObject;
 	}
 	
 	// Update is called once per frame
@@ -34,15 +27,15 @@ public class TileManager2 : MonoBehaviour
 			{
 				if (hit.collider.GetComponent<TileStats>().GetRightTile() == null)
 				{
-					this.selectedTile = hit.collider.gameObject;
-					this.tileOffset = (Vector2) (this.selectedTile.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition));
+					selectedTile = hit.collider.gameObject;
+					tileOffset = (Vector2) (selectedTile.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition));
 				}
-				else
+				else 
 				{
-					this.selectedTile = hit.collider.gameObject;
-					this.tileOffset = (Vector2) (this.selectedTile.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition));
-					connectedTiles = this.GetConnectedTiles(hit.collider.GetComponent<TileStats>());
-				}
+					selectedTile = hit.collider.gameObject;
+					tileOffset = (Vector2) (selectedTile.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition));
+					connectedTiles = GetConnectedTiles(hit.collider.GetComponent<TileStats>());
+				} 
 			}
 		} 
 		else if (Input.GetMouseButton(0))
@@ -54,18 +47,16 @@ public class TileManager2 : MonoBehaviour
 					Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
 				if (connectedTiles == null)
 				{
-					this.goalPosition = newPos + this.tileOffset;
-					this.isMoving = false;
-					this.tileToLerp = this.selectedTile;
+					selectedTile.transform.position = newPos + tileOffset;
 				}
 				else
 				{
 					for (int i = 0; i < connectedTiles.Count; i++)
 					{
-						Vector2 originOffset = newPos + this.tileOffset;
-                        connectedTiles[i].transform.position = new Vector2(
-	                        originOffset.x + ((connectedTiles[i].GetComponent<SpriteRenderer>().size.x-this.tileSizeOffset)*i), 
-	                        originOffset.y);
+						Vector2 originOffset = newPos + tileOffset;
+						connectedTiles[i].transform.position = new Vector2(
+							originOffset.x + ((connectedTiles[i].GetComponent<SpriteRenderer>().size.x)*i), 
+							originOffset.y);
 					}
 				}
 			}
@@ -75,13 +66,8 @@ public class TileManager2 : MonoBehaviour
 			selectedTile = null;
 			connectedTiles = null;
 		}
-
-		if (this.isMoving)
-		{
-//			Vector2 newPos = Vector2.Lerp()
-		}
 	}
-
+	
 	private List<GameObject> GetConnectedTiles(TileStats tile)
 	{
 		List<GameObject> tiles = new List<GameObject>();
@@ -96,10 +82,10 @@ public class TileManager2 : MonoBehaviour
 		}
 
 	}
-
+	
 	public List<int> GetInstructionChain()
 	{
-		return GetInstructions(this.rootNode.GetComponent<TileStats>().GetRightTile().GetComponent<TileStats>());
+		return GetInstructions(rootNode.GetComponent<TileStats>().GetRightTile().GetComponent<TileStats>());
 	}
 
 	private List<int> GetInstructions(TileStats stats)
