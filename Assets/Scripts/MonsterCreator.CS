@@ -8,6 +8,7 @@ public class MonsterCreator : MonoBehaviour {
 
     //Head
 	public GameObject headPreview, bodyPreview, legsPreview;
+	public GameObject playerHead, playerBody, playerLegs;
 	private int headIndex = 0, bodyIndex = 0, legsIndex = 0;
 
 	private Sprite[] characterSprites;
@@ -16,9 +17,11 @@ public class MonsterCreator : MonoBehaviour {
 	void Start ()
 	{
 		characterSprites = Resources.LoadAll<Sprite>("Sprites/TestMonsters");
-		UpdateSpritePreview(0);
-		UpdateSpritePreview(1);
-		UpdateSpritePreview(2);
+		for (int i = 0; i < 3; i++)
+		{
+			UpdateSpritePreview(i);
+			UpdatePlayerPreview(i);
+		}
 	}
 	
 	// Update is called once per frame
@@ -33,14 +36,17 @@ public class MonsterCreator : MonoBehaviour {
 			case 0:
 				headIndex = ShiftIndexRight(headIndex);
 				UpdateSpritePreview(0);
+				UpdatePlayerPreview(0);
 				break;
 			case 1:
 				bodyIndex = ShiftIndexRight(bodyIndex);
 				UpdateSpritePreview(1);
+				UpdatePlayerPreview(1);
 				break;
 			case 2:
 				legsIndex = ShiftIndexRight(legsIndex);
 				UpdateSpritePreview(2);
+				UpdatePlayerPreview(2);
 				break;
 			default:
 				Debug.Log("ERROR: Not a valid body index!");
@@ -55,13 +61,16 @@ public class MonsterCreator : MonoBehaviour {
 			case 0:
 				headIndex = ShiftIndexLeft(headIndex);
 				UpdateSpritePreview(0);
+				UpdatePlayerPreview(0);
 				break;
 			case 1:
 				bodyIndex = ShiftIndexLeft(bodyIndex);
 				UpdateSpritePreview(1);
+				UpdatePlayerPreview(1);
 				break;
 			case 2:
 				UpdateSpritePreview(2);
+				UpdatePlayerPreview(2);
 				legsIndex = ShiftIndexLeft(legsIndex);
 				break;
 			default:
@@ -85,6 +94,25 @@ public class MonsterCreator : MonoBehaviour {
 				break;
 			default:
 				Debug.Log("ERROR: Part index not valid to udpate sprite");
+				break;
+		}
+	}
+	
+	private void UpdatePlayerPreview(int partIndex)
+	{
+		switch (partIndex)
+		{
+			case 0:
+				playerHead.GetComponent<Image>().sprite = characterSprites[headIndex+4];
+				break;
+			case 1:
+				playerBody.GetComponent<Image>().sprite = characterSprites[bodyIndex];
+				break;
+			case 2:
+				playerLegs.GetComponent<Image>().sprite = characterSprites[legsIndex+8];
+				break;
+			default:
+				Debug.Log("ERROR: Part index not valid to udpate player sprite");
 				break;
 		}
 	}
