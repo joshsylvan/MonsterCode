@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: fd5060477275145f7b8a78b8d9b91202
-timeCreated: 1515514595
+timeCreated: 1516056852
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -12,6 +12,7 @@ TextureImporter:
     21300010: s_rightTile
     21300012: s_leftTile
     21300014: s_specialTile
+    21300016: s_DeleteTile
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -215,6 +216,20 @@ TextureImporter:
         height: 33
       alignment: 9
       pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: s_DeleteTile
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 33
+        width: 33
+        height: 33
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

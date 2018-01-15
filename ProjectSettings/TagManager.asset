@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tile
+  - TilePreview
+  - MonsterTile
   layers:
   - Default
   - TransparentFX
@@ -39,6 +41,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackGround
+    uniqueID: 344774935
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: SnapShadow
+    uniqueID: 2501566947
+    locked: 0
+  - name: Tile
+    uniqueID: 4179988289
     locked: 0

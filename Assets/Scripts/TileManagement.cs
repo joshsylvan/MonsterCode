@@ -55,7 +55,7 @@ public class TileManagement : MonoBehaviour {
 					{
 						Vector2 originOffset = newPos + tileOffset;
 						connectedTiles[i].transform.position = new Vector2(
-							originOffset.x + ((connectedTiles[i].GetComponent<SpriteRenderer>().size.x)*i), 
+							originOffset.x + ((connectedTiles[i].GetComponent<SpriteRenderer>().size.x * transform.localScale.x)*i), 
 							originOffset.y);
 					}
 				}
@@ -100,5 +100,10 @@ public class TileManagement : MonoBehaviour {
 		{
 			return instructions;
 		}
+	}
+
+	public void SetSelectedTile(GameObject selectedTile)
+	{
+		this.selectedTile = selectedTile;
 	}
 }
