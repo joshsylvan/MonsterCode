@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditorInternal.VR.iOS;
 using UnityEngine;
 
 public class TileManagement : MonoBehaviour {
@@ -22,18 +23,23 @@ public class TileManagement : MonoBehaviour {
 	void Update () {
 		if (Input.GetMouseButtonDown (0)) {
 			
-			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			float z_plane_of_2d_game = 0;
+			Vector3 pos_at_z_0 = ray.origin + ray.direction * (z_plane_of_2d_game - ray.origin.z) / ray.direction.z;
+			Vector2 point = new Vector2(pos_at_z_0.x,pos_at_z_0.y);
+			RaycastHit2D hit = Physics2D.Raycast(point, Vector2.zero);
+			
 			if( hit.collider != null && hit.collider.CompareTag("Tile") && hit.collider.name != "RootNode")
 			{
 				if (hit.collider.GetComponent<TileStats>().GetRightTile() == null)
 				{
 					selectedTile = hit.collider.gameObject;
-					tileOffset = (Vector2) (selectedTile.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition));
+					tileOffset = (Vector2) (selectedTile.transform.position - new Vector3(point.x, point.y, 0));
 				}
 				else 
 				{
 					selectedTile = hit.collider.gameObject;
-					tileOffset = (Vector2) (selectedTile.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition));
+					tileOffset = (Vector2) (selectedTile.transform.position - new Vector3(point.x, point.y, 0));
 					connectedTiles = GetConnectedTiles(hit.collider.GetComponent<TileStats>());
 				} 
 			}
@@ -42,9 +48,11 @@ public class TileManagement : MonoBehaviour {
 		{
 			if (selectedTile != null)
 			{
-				Vector2 newPos = new Vector2(
-					Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
-					Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				float z_plane_of_2d_game = 0;
+				Vector3 pos_at_z_0 = ray.origin + ray.direction * (z_plane_of_2d_game - ray.origin.z) / ray.direction.z;
+				Vector2 point = new Vector2(pos_at_z_0.x,pos_at_z_0.y);
+				Vector2 newPos = point;
 				if (connectedTiles == null)
 				{
 					selectedTile.transform.position = newPos + tileOffset;
@@ -65,9 +73,13 @@ public class TileManagement : MonoBehaviour {
 		{
 			selectedTile = null;
 			connectedTiles = null;
-			
-			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-			if( hit.collider != null && hit.collider.CompareTag("GoButton"))
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			float z_plane_of_2d_game = 0;
+			Vector3 pos_at_z_0 = ray.origin + ray.direction * (z_plane_of_2d_game - ray.origin.z) / ray.direction.z;
+ 			Vector2 point = new Vector2(pos_at_z_0.x,pos_at_z_0.y);
+			RaycastHit2D hit = Physics2D.Raycast(point, Vector2.zero);
+//			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+			if( hit.collider != null && hit.collider.name == "GoButton")
 			{
 				GameObject.Find("GameManager").GetComponent<GameManager>().OnGoButtonClick(GetInstructionChain());
 			}

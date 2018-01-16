@@ -18,7 +18,12 @@ public class TilePreviewManager : MonoBehaviour
 	void Update () {
 		if (Input.GetMouseButtonDown (0)) {
 			
-			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			float z_plane_of_2d_game = 0;
+			Vector3 pos_at_z_0 = ray.origin + ray.direction * (z_plane_of_2d_game - ray.origin.z) / ray.direction.z;
+			Vector2 point = new Vector2(pos_at_z_0.x,pos_at_z_0.y);
+			RaycastHit2D hit = Physics2D.Raycast(point, Vector2.zero);
+			
 			if( hit.collider != null && hit.collider.CompareTag("TilePreview"))
 			{
 				GameObject tile = Resources.Load("Prefab/Tiles/" + GetTileName(hit.collider.name)) as GameObject;
@@ -26,9 +31,11 @@ public class TilePreviewManager : MonoBehaviour
 				tile.SetActive(false);
 				tile.transform.parent = this.transform.parent.GetChild(1);
 				tile.transform.localScale = Vector3.one;
+				Vector3 pos_at_z_0_2 = ray.origin + ray.direction * (z_plane_of_2d_game - ray.origin.z) / ray.direction.z;
+				Vector2 point2 = new Vector2(pos_at_z_0.x,pos_at_z_0.y);
 				Vector2 newPos = new Vector2(
-					Camera.main.ScreenToWorldPoint(Input.mousePosition).x - (1.6f*tile.transform.parent.parent.localScale.x), 
-					Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+					point2.x - (1.6f*tile.transform.parent.parent.localScale.x), 
+					point2.y);
 				tile.transform.position = newPos;
 				tile.SetActive(true);
 				tm.SetSelectedTile(tile);

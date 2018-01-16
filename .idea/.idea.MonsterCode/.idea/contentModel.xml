@@ -5,7 +5,7 @@
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="GameManager.cs" t="Include" />
+        <e p="PlatformFloating.cs" t="Include" />
         <e p="Plugins" t="Include">
           <e p="Editor" t="Include">
             <e p="JetBrains" t="Include">
@@ -17,6 +17,7 @@
           <e p="CameraMenuMovement.cs" t="Include" />
           <e p="DeleteTile.cs" t="Include" />
           <e p="EnemyMechanics.cs" t="Include" />
+          <e p="GameManager.cs" t="Include" />
           <e p="GameplayMechanics.cs" t="Include" />
           <e p="MonsterCreator.cs" t="Include" />
           <e p="MonsterStats.cs" t="Include" />
@@ -27,6 +28,7 @@
           <e p="TilePreviewManager.cs" t="Include" />
           <e p="TileStats.cs" t="Include" />
         </e>
+        <e p="TreesRotating.cs" t="Include" />
       </e>
       <e p="Library" t="ExcludeRecursive" />
       <e p="MonsterCode.sln" t="IncludeFlat" />

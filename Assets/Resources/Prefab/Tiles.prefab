@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 50219467682959734}
   m_Layer: 0
   m_Name: GoButton
-  m_TagString: Untagged
+  m_TagString: GoButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1249,7 +1249,7 @@ Transform:
   m_GameObject: {fileID: 1752549004130316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1.15, y: 1.15, z: 1}
   m_Children:
   - {fileID: 4216839548354636}
   - {fileID: 4043942532330182}
