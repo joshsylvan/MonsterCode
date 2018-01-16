@@ -6,13 +6,18 @@ public class EnemyMechanics : MonoBehaviour {
 
 	private MonsterStats monsterStats;
 	private GameObject headObject, bodyObject, legsObject;
-	
-	// Use this for initialization
-	void Start () {
+
+	private void Awake()
+	{
 		this.monsterStats = new MonsterStats();
 		this.headObject = transform.GetChild(0).gameObject;
 		this.bodyObject = transform.GetChild(1).gameObject;
 		this.legsObject = transform.GetChild(2).gameObject;
+	}
+
+	// Use this for initialization
+	void Start () {
+	
 	}
 	
 	// Update is called once per frame

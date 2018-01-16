@@ -59,15 +59,19 @@ public class MonsterStats
 		set { isDefending = value; }
 	}
 
-	public int XPosition
+	public int GetXPosition()
 	{
-		get { return xPosition; }
-		set { xPosition = value; }
+		return this.xPosition;
+	}
+	
+	public int GetYPosition()
+	{
+		return this.yPosition;
 	}
 
-	public int YPosition
+	public void SetPosition(int xPosition, int yPosition)
 	{
-		get { return yPosition; }
-		set { yPosition = value; }
+		this.xPosition = xPosition;
+		this.yPosition = yPosition;
 	}
 }
