@@ -7,6 +7,7 @@ TagManager:
   - Tile
   - TilePreview
   - MonsterTile
+  - GoButton
   layers:
   - Default
   - TransparentFX

@@ -65,6 +65,13 @@ public class TileManagement : MonoBehaviour {
 		{
 			selectedTile = null;
 			connectedTiles = null;
+			
+			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+			if( hit.collider != null && hit.collider.CompareTag("GoButton"))
+			{
+				GameObject.Find("GameManager").GetComponent<GameManager>().OnGoButtonClick(GetInstructionChain());
+			}
+			
 		}
 	}
 	

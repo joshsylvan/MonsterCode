@@ -26,25 +26,25 @@ public class GameplayMechanics : MonoBehaviour
 	{
 
 		playerInstructions = new Queue<int>();
-		playerInstructions.Enqueue(1);
-		playerInstructions.Enqueue(1);
-		playerInstructions.Enqueue(1);
-		playerInstructions.Enqueue(1);
-		playerInstructions.Enqueue(1);
-		playerInstructions.Enqueue(1);
-		playerInstructions.Enqueue(2);
-		playerInstructions.Enqueue(3);
+//		playerInstructions.Enqueue(1);
+//		playerInstructions.Enqueue(1);
+//		playerInstructions.Enqueue(1);
+//		playerInstructions.Enqueue(1);
+//		playerInstructions.Enqueue(1);
+//		playerInstructions.Enqueue(1);
+//		playerInstructions.Enqueue(2);
+//		playerInstructions.Enqueue(3);
 		
 		enemyInstructions = new Queue<int>();
-		enemyInstructions.Enqueue(2);
-		enemyInstructions.Enqueue(2);
-		enemyInstructions.Enqueue(2);
-		enemyInstructions.Enqueue(2);
-		enemyInstructions.Enqueue(2);
-		enemyInstructions.Enqueue(2);
-		enemyInstructions.Enqueue(1);
-		enemyInstructions.Enqueue(3);
-		enemyInstructions.Enqueue(4);
+//		enemyInstructions.Enqueue(2);
+//		enemyInstructions.Enqueue(2);
+//		enemyInstructions.Enqueue(2);
+//		enemyInstructions.Enqueue(2);
+//		enemyInstructions.Enqueue(2);
+//		enemyInstructions.Enqueue(2);
+//		enemyInstructions.Enqueue(1);
+//		enemyInstructions.Enqueue(3);
+//		enemyInstructions.Enqueue(4);
 
 	}
 
@@ -114,16 +114,16 @@ public class GameplayMechanics : MonoBehaviour
 		{
 			switch (playerInstructions.Dequeue())
 			{
-				case 1:
+				case 4:
 					MovePlayerRight();
 					break;
-				case 2:
+				case 3:
 					MovePlayerLeft();
 					break;
-				case 3:
+				case 2:
 					MovePlayerUp();
 					break;
-				case 4:
+				case 1:
 					MovePlayerDown();
 					break;
 			}
@@ -132,16 +132,16 @@ public class GameplayMechanics : MonoBehaviour
 		{
 			switch (enemyInstructions.Dequeue())
 			{
-				case 1:
+				case 4:
 					MoveEnemyRight();
 					break;
-				case 2:
+				case 3:
 					MoveEnemyLeft();
 					break;
-				case 3:
+				case 2:
 					MoveEnemyUp();
 					break;
-				case 4:
+				case 1:
 					MoveEnemyDown();
 					break;
 			}
