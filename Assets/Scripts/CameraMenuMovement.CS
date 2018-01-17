@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMenuMovement : MonoBehaviour
 {
 
-	public Transform titleTarget, creatorTarget;
+	public Transform titleTarget, creatorTarget, gameTarget;
 	private Transform currentTarget;
 	public float cameraSpeed = 5f, cameraRotationSpeed = 2.5f;
 	
@@ -27,11 +27,19 @@ public class CameraMenuMovement : MonoBehaviour
 	public void MoveToTitle()
 	{
 		currentTarget = titleTarget;
+		cameraSpeed = 5f;
 	}
 
 	public void MoveToCreator()
 	{
 		currentTarget = creatorTarget;
+		cameraSpeed = 5f;
+	}
+
+	public void MoveToGame()
+	{
+		currentTarget = gameTarget;
+		cameraSpeed = 1f;
 	}
 	
 	

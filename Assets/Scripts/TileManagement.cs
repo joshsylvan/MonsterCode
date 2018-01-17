@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditorInternal.VR.iOS;
 using UnityEngine;
 
 public class TileManagement : MonoBehaviour {
