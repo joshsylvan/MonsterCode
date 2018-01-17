@@ -64,9 +64,9 @@ public class GameManager : MonoBehaviour
 		this.gameplayMechanics.PerformInstructions();
 	}
 
-	Queue<int> ParseInstructions(List<int> instructions)
+	LinkedList<int> ParseInstructions(List<int> instructions)
 	{
-		Queue<int> instructionQueue = new Queue<int>();
+		LinkedList<int> instructionQueue = new LinkedList<int>();
 		for (int i = 0; i < instructions.Count; i++)
 		{
 			switch (instructions[i])
@@ -74,24 +74,25 @@ public class GameManager : MonoBehaviour
 				case 0: //Defence
 					break;
 				case 1: //Fight
+					instructionQueue.AddFirst(5);
 					break;
 				case 2: // jump
-					instructionQueue.Enqueue(2);
+					instructionQueue.AddLast(2);
 					if (i+1 < instructions.Count && instructions[i + 1] == 3)
 					{
-						instructionQueue.Enqueue(3);
+						instructionQueue.AddLast(3);
 					} 
 					else if (i+1 < instructions.Count && instructions[i + 1] == 4)
 					{
-						instructionQueue.Enqueue(4);
+						instructionQueue.AddLast(4);
 					}
-					instructionQueue.Enqueue(1);
+					instructionQueue.AddLast(1);
 					break;
 				case 3: //left
-					instructionQueue.Enqueue(3);
+					instructionQueue.AddLast(3);
 					break;
 				case 4: //right
-					instructionQueue.Enqueue(4);
+					instructionQueue.AddLast(4);
 					break;
 				case 5: // special
 					break;

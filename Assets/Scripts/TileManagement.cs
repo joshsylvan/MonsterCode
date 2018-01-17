@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class TileManagement : MonoBehaviour {
@@ -103,7 +104,16 @@ public class TileManagement : MonoBehaviour {
 	
 	public List<int> GetInstructionChain()
 	{
-		return GetInstructions(rootNode.GetComponent<TileStats>().GetRightTile().GetComponent<TileStats>());
+		if (rootNode.GetComponent<TileStats>().GetRightTile() != null)
+		{
+			List<int> instructions =
+				GetInstructions(rootNode.GetComponent<TileStats>().GetRightTile().GetComponent<TileStats>());
+			return instructions;
+		}
+		else
+		{
+			return new List<int>(){0};
+		}
 	}
 
 	private List<int> GetInstructions(TileStats stats)
