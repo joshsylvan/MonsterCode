@@ -12,16 +12,16 @@ public class CameraMenuMovement : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		this.currentTarget = titleTarget;
+			this.currentTarget = titleTarget;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
-		this.transform.position = Vector3.Lerp(this.transform.position, currentTarget.position, Time.deltaTime*cameraSpeed);
-		this.transform.rotation = Quaternion.Lerp(this.transform.rotation, currentTarget.rotation, Time.deltaTime*cameraRotationSpeed);
-		
-
+	void Update()
+	{
+			this.transform.position =
+				Vector3.Lerp(this.transform.position, currentTarget.position, Time.deltaTime * cameraSpeed);
+			this.transform.rotation =
+				Quaternion.Lerp(this.transform.rotation, currentTarget.rotation, Time.deltaTime * cameraRotationSpeed);
 	}
 
 	public void MoveToTitle()

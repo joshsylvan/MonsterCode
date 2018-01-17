@@ -63,6 +63,9 @@ TagManager:
   - name: FG
     uniqueID: 123944177
     locked: 0
+  - name: TileBG
+    uniqueID: 1946166065
+    locked: 0
   - name: BackGround
     uniqueID: 344774935
     locked: 0

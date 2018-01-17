@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class GameplayMechanics : MonoBehaviour
 {
-	private GameObject playerObject, enemyObject, arenaGameObject, environment;
+	private GameObject playerObject, enemyObject, arenaGameObject, environment, instructionsGameObject;
 	private PlayerMechanics playerStats;
 	private EnemyMechanics enemyStats;
+	private GameUIManager gameUI;
 
 	private GameObject[,] arenaCells;
+	private int[,] arenaCellData;
 
 	private bool performInstructions = false;
 	
@@ -22,129 +24,182 @@ public class GameplayMechanics : MonoBehaviour
 	private bool isEnemyMoving = false;
 	private Queue<int> enemyInstructions;
 
+	private List<List<int>> enemyLevelInstructions;
+
+	private float coolDownTimer = 3f, OGCoolDownTimer = 7f;
+	private bool hasCoolDownStarted = false;
+
 	private void Awake()
 	{
-
 		playerInstructions = new Queue<int>();
-//		playerInstructions.Enqueue(1);
-//		playerInstructions.Enqueue(1);
-//		playerInstructions.Enqueue(1);
-//		playerInstructions.Enqueue(1);
-//		playerInstructions.Enqueue(1);
-//		playerInstructions.Enqueue(1);
-//		playerInstructions.Enqueue(2);
-//		playerInstructions.Enqueue(3);
-		
 		enemyInstructions = new Queue<int>();
-//		enemyInstructions.Enqueue(2);
-//		enemyInstructions.Enqueue(2);
-//		enemyInstructions.Enqueue(2);
-//		enemyInstructions.Enqueue(2);
-//		enemyInstructions.Enqueue(2);
-//		enemyInstructions.Enqueue(2);
-//		enemyInstructions.Enqueue(1);
-//		enemyInstructions.Enqueue(3);
-//		enemyInstructions.Enqueue(4);
-
 	}
 
 	// Use this for initialization
 	void Start ()
 	{
+		
+	}
+
+	public void InitGame()
+	{
+		this.gameUI = GameObject.Find("GameUI").GetComponent<GameUIManager>();
 		this.environment = GameObject.Find("Environment");
 		this.playerObject = this.environment.transform.GetChild(1).GetChild(0).gameObject;
 		this.enemyObject = this.environment.transform.GetChild(1).GetChild(1).gameObject;
 		this.playerStats = playerObject.GetComponent<PlayerMechanics>();
 		this.enemyStats = enemyObject.GetComponent<EnemyMechanics>();
+		this.instructionsGameObject = GameObject.Find("Tiles");
+		this.instructionsGameObject.SetActive(false);
 		this.arenaGameObject = environment.transform.GetChild(0).gameObject;
-		
 		this.arenaCells = new GameObject[6,6];
+		this.arenaCellData = new int[6,6];
 		for (int i = 0; i < this.arenaCells.GetLength(0); i++)
 		{
 			for (int j = 0; j < this.arenaCells.GetLength(1); j++)
 			{
 				this.arenaCells[i, j] = this.arenaGameObject.transform.GetChild(i).GetChild(j).gameObject;
+				if (this.arenaCells[i, j].transform.childCount > 0)
+				{
+					arenaCellData[i, j] = 1;
+				}
+				else
+				{
+					arenaCellData[i, j] = 0;
+				}
 			}
 		}
+
+		StartCoolDownTimer(10);
+	}
+
+	public void LoadLevel(int playerX, int playerY, int enemyX, int enemyY)
+	{
+		this.playerObject.transform.position = arenaCells[playerY, playerX].transform.position;
+		this.arenaCellData[playerY, playerX] = 1;
+		this.playerStats.GetMonsterStats().SetPosition(playerX, playerY);
 		
-		int startX = 1, startY = 4;
-		this.playerObject.transform.position = arenaCells[startY, startX].transform.position;
-		this.playerStats.GetMonsterStats().SetPosition(startX, startY);
+		this.enemyObject.transform.position = arenaCells[enemyY, enemyX].transform.position;
+		this.enemyStats.GetMonsterStats().SetPosition(enemyX, enemyY);
+		this.arenaCellData[enemyY, enemyX] = 1;
 		
-		this.enemyObject.transform.position = arenaCells[4, 4].transform.position;
-		this.enemyStats.GetMonsterStats().SetPosition(4, 4);
-		performInstructions = true;
+		this.gameUI.SetPlayerHealth(this.playerStats.GetMonsterStats().Health);
+		this.gameUI.SetEnemyHealth(this.enemyStats.GetMonsterStats().Health);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//Move Player
-		if (performInstructions && IsEnemyReady() && IsPlayerReady())
+		if (GameManager.inGame)
 		{
-			PlayGame();
-		}
-		
-		
-		if (isPlayerLerping)
-		{
-			Vector2 newPos = Vector2.Lerp(playerObject.transform.position, playerNewPosition, Time.deltaTime*movementSpeed);
-			playerObject.transform.position = newPos;
-			if (Vector2.Distance(playerObject.transform.position, playerNewPosition) < minimumDistance)
+			if (!GameManager.inInstructions)
 			{
-				isPlayerLerping = false;
+				if (this.IsCoolDownOver() && !performInstructions)
+				{
+					GameManager.inInstructions = true;
+				}
+				//Move Player
+				if (performInstructions && IsEnemyReady() && IsPlayerReady())
+				{
+					PlayGame();
+				}
+
+				if (isPlayerLerping)
+				{
+					Vector2 newPos = Vector2.Lerp(playerObject.transform.position, playerNewPosition, Time.deltaTime * movementSpeed);
+					playerObject.transform.position = newPos;
+					if (Vector2.Distance(playerObject.transform.position, playerNewPosition) < minimumDistance)
+					{
+						isPlayerLerping = false;
+					}
+				}
+
+				//Move Enemy
+				if (isEnemyMoving)
+				{
+					Vector2 newPos = Vector2.Lerp(enemyObject.transform.position, enemyNewPosition, Time.deltaTime * movementSpeed);
+					enemyObject.transform.position = newPos;
+					if (Vector2.Distance(enemyObject.transform.position, enemyNewPosition) < minimumDistance)
+					{
+						isEnemyMoving = false;
+					}
+				}
+			}
+			else
+			{
+				instructionsGameObject.SetActive(true);
 			}
 		}
-		
-		//Move Enemy
-		if (isEnemyMoving)
+	}
+
+	private void StartCoolDownTimer(float time)
+	{
+		if (!hasCoolDownStarted)
 		{
-			Vector2 newPos = Vector2.Lerp(enemyObject.transform.position, enemyNewPosition, Time.deltaTime*movementSpeed);
-			enemyObject.transform.position = newPos;
-			if (Vector2.Distance(enemyObject.transform.position, enemyNewPosition) < minimumDistance)
-			{
-				isEnemyMoving = false;
-			}
+			this.coolDownTimer = time;
+			this.hasCoolDownStarted = true;
 		}
-		
+	}
+
+	private bool IsCoolDownOver()
+	{
+		if (this.coolDownTimer > 0)
+		{
+			this.coolDownTimer -= Time.deltaTime;
+			return false;
+		}
+		else
+		{
+			this.hasCoolDownStarted = false;
+			return true;
+		}
 	}
 
 	private void PlayGame()
 	{
-		if (playerInstructions.Count > 0)
+		if (playerInstructions.Count > 0 || enemyInstructions.Count > 0)
 		{
-			switch (playerInstructions.Dequeue())
+			if (playerInstructions.Count > 0)
 			{
-				case 4:
-					MovePlayerRight();
-					break;
-				case 3:
-					MovePlayerLeft();
-					break;
-				case 2:
-					MovePlayerUp();
-					break;
-				case 1:
-					MovePlayerDown();
-					break;
+				switch (playerInstructions.Dequeue())
+				{
+					case 4:
+						MovePlayerRight();
+						break;
+					case 3:
+						MovePlayerLeft();
+						break;
+					case 2:
+						MovePlayerUp();
+						break;
+					case 1:
+						MovePlayerDown();
+						break;
+				}
+			}
+
+			if (enemyInstructions.Count > 0)
+			{
+				switch (enemyInstructions.Dequeue())
+				{
+					case 4:
+						MoveEnemyRight();
+						break;
+					case 3:
+						MoveEnemyLeft();
+						break;
+					case 2:
+						MoveEnemyUp();
+						break;
+					case 1:
+						MoveEnemyDown();
+						break;
+				}
 			}
 		}
-		if (enemyInstructions.Count > 0)
+		else
 		{
-			switch (enemyInstructions.Dequeue())
-			{
-				case 4:
-					MoveEnemyRight();
-					break;
-				case 3:
-					MoveEnemyLeft();
-					break;
-				case 2:
-					MoveEnemyUp();
-					break;
-				case 1:
-					MoveEnemyDown();
-					break;
-			}
+			StartCoolDownTimer(3);
+			performInstructions = false;
 		}
 	}
 
@@ -255,5 +310,14 @@ public class GameplayMechanics : MonoBehaviour
 	{
 		this.performInstructions = true;
 	}
-	
+
+	public PlayerMechanics GetPlayerStats()
+	{
+		return this.playerStats;
+	}
+	public EnemyMechanics GetEnemyStats()
+	{
+		return this.enemyStats;
+	}
+
 }

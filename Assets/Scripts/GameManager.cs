@@ -5,12 +5,27 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+	public static bool inGame = false; 
+	public static bool inInstructions = false;
+	
 	private GameplayMechanics gameplayMechanics;
-	public GameObject tileObject;
+	public GameObject tileObject, menuObject, gameplayObject;
+	public GameUIManager gameUI;
+	private CameraMenuMovement camera;
+	
+	private Levels levels;
+	int currentLevel = 0, currentLevelphase = 0;
+
+	private float menuCooldown = 1f, ogMenuCooldown = 1f;
 
 	private void Awake()
 	{
+		camera = Camera.main.GetComponent<CameraMenuMovement>();
 		this.gameplayMechanics = GetComponent<GameplayMechanics>();
+		levels = new Levels();
+		gameplayObject.SetActive(false);
+		menuObject.SetActive(true);
+//		StartGame();
 	}
 
 	// Use this for initialization
@@ -20,13 +35,32 @@ public class GameManager : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (inGame && menuCooldown > 0)
+		{
+			menuCooldown -= Time.deltaTime;
+			if (menuCooldown <= 0)
+			{
+				menuObject.SetActive(false);
+			}
+		}
+	}
+
+	public void StartGame()
+	{
+		inGame = true;
+		camera.MoveToGame();
+		gameplayObject.SetActive(true);
+		menuCooldown = ogMenuCooldown;
+		gameplayMechanics.InitGame();
+		gameplayMechanics.LoadLevel(1, 5, 4, 5);
 	}
 
 	public void OnGoButtonClick(List<int> playerInstructions)
 	{
 		this.gameplayMechanics.SetPlayerInstructions(ParseInstructions(playerInstructions));
+		this.gameplayMechanics.SetEnemyInstructions(ParseInstructions(levels.GetLevel(currentLevel)[currentLevelphase]));
 		this.tileObject.SetActive(false);
+		inInstructions = false;
 		this.gameplayMechanics.PerformInstructions();
 	}
 
