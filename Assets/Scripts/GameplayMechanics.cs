@@ -8,6 +8,8 @@ public class GameplayMechanics : MonoBehaviour
 	private PlayerMechanics playerStats;
 	private EnemyMechanics enemyStats;
 	private GameUIManager gameUI;
+	
+	public GameObject[] monsterTiles;
 
 	private GameObject[,] arenaCells;
 	private int[,] arenaCellData;
@@ -21,11 +23,11 @@ public class GameplayMechanics : MonoBehaviour
 	private LinkedList<int> playerInstructions;
 
 	private int playerDirection = 1, enemyDirection = -1;
+	private bool isPlayerDefending = false, isEnemyDefending = false;
 	
 	private Vector2 enemyNewPosition = Vector2.zero;
 	private bool isEnemyMoving = false;
 	private LinkedList<int> enemyInstructions;
-
 	private List<List<int>> enemyLevelInstructions;
 
 	private float coolDownTimer = 3f, OGCoolDownTimer = 7f;
@@ -35,6 +37,7 @@ public class GameplayMechanics : MonoBehaviour
 	{
 		playerInstructions = new LinkedList<int>();
 		enemyInstructions = new LinkedList<int>();
+		monsterTiles = Resources.LoadAll<GameObject>("Prefab/MonsterTiles");
 	}
 
 	// Use this for initialization
@@ -76,7 +79,7 @@ public class GameplayMechanics : MonoBehaviour
 		StartCoolDownTimer(10);
 	}
 
-	public void LoadLevel(int playerX, int playerY, int enemyX, int enemyY)
+	public void LoadLevel(int playerX, int playerY, int enemyX, int enemyY, List<int> enemyInstructions)
 	{
 		this.playerObject.transform.position = arenaCells[playerY, playerX].transform.position;
 		this.arenaCellData[playerY, playerX] = 2;
@@ -88,6 +91,8 @@ public class GameplayMechanics : MonoBehaviour
 		
 		this.gameUI.SetPlayerHealth(this.playerStats.GetMonsterStats().Health);
 		this.gameUI.SetEnemyHealth(this.enemyStats.GetMonsterStats().Health);
+		
+		LoadMonsterTiles(enemyInstructions);
 	}
 	
 	// Update is called once per frame
@@ -176,6 +181,10 @@ public class GameplayMechanics : MonoBehaviour
 			{
 				switch (playerInstructions.First.Value)
 				{
+					case 6:
+						playerInstructions.RemoveFirst();
+						PlayerDefend();
+						break;
 					case 5:
 						playerInstructions.RemoveFirst();
 						PlayerAttack();
@@ -217,6 +226,10 @@ public class GameplayMechanics : MonoBehaviour
 			{
 				switch (enemyInstructions.First.Value)
 				{
+					case 6:
+						enemyInstructions.RemoveFirst();
+						EnemyDefend();
+						break;
 					case 5:
 						enemyInstructions.RemoveFirst();
 						EnemyAttack();
@@ -268,7 +281,6 @@ public class GameplayMechanics : MonoBehaviour
 
 	private void LerpPlayerTo(int x, int y)
 	{
-		Debug.Log("PLAYER: " + x + ":" + y);
 		this.isPlayerLerping = true;
 		this.arenaCellData[this.playerStats.GetMonsterStats().GetYPosition(), this.playerStats.GetMonsterStats().GetXPosition()] = 0;
 		this.playerNewPosition = arenaCells[y, x].transform.position;
@@ -278,21 +290,21 @@ public class GameplayMechanics : MonoBehaviour
 
 	public void MovePlayerLeft()
 	{
+		playerDirection = -1;
 		if (InBounds(playerStats.GetMonsterStats().GetXPosition()-1, playerStats.GetMonsterStats().GetYPosition()) &&
 		    this.arenaCellData[playerStats.GetMonsterStats().GetYPosition(), playerStats.GetMonsterStats().GetXPosition()-1] == 0)
 		{
 			LerpPlayerTo(playerStats.GetMonsterStats().GetXPosition()-1, playerStats.GetMonsterStats().GetYPosition());
-			playerDirection = -1;
 		}
 	}
 	
 	public void MovePlayerRight()
 	{
+		playerDirection = 1;
 		if (InBounds(playerStats.GetMonsterStats().GetXPosition()+1, playerStats.GetMonsterStats().GetYPosition()) &&
 		    this.arenaCellData[playerStats.GetMonsterStats().GetYPosition(), playerStats.GetMonsterStats().GetXPosition()+1] == 0)
 		{
 			LerpPlayerTo(playerStats.GetMonsterStats().GetXPosition()+1, playerStats.GetMonsterStats().GetYPosition());
-			playerDirection = 1;
 		}
 	}
 
@@ -320,12 +332,25 @@ public class GameplayMechanics : MonoBehaviour
 		if(InBounds(playerStats.GetMonsterStats().GetXPosition()+playerDirection, playerStats.GetMonsterStats().GetYPosition()))
 		{
 			if (enemyStats.GetMonsterStats().GetXPosition() == playerStats.GetMonsterStats().GetXPosition() + playerDirection &&
-			    enemyStats.GetMonsterStats().GetYPosition() == playerStats.GetMonsterStats().GetYPosition())
+			    enemyStats.GetMonsterStats().GetYPosition() == playerStats.GetMonsterStats().GetYPosition() && !this.isEnemyDefending)
 			{
 				enemyStats.GetMonsterStats().DamageMonster(1);
 				gameUI.SetEnemyHealth(enemyStats.GetMonsterStats().Health);
+				if (playerDirection == 1)
+				{
+					enemyInstructions.AddFirst(4);
+				}
+				else if(playerDirection == -1)
+				{
+					enemyInstructions.AddFirst(3);
+				}
 			}
 		}
+	}
+
+	public void PlayerDefend()
+	{
+		this.isPlayerDefending = true;
 	}
 
 	public bool IsPlayerInAir()
@@ -362,21 +387,21 @@ public class GameplayMechanics : MonoBehaviour
 	
 	public void MoveEnemyLeft()
 	{
+		enemyDirection = -1;
 		if (InBounds(enemyStats.GetMonsterStats().GetXPosition()-1, enemyStats.GetMonsterStats().GetYPosition()) && 
 		    this.arenaCellData[enemyStats.GetMonsterStats().GetYPosition(), enemyStats.GetMonsterStats().GetXPosition()-1] == 0)
 		{
 			LerpEnemyTo(enemyStats.GetMonsterStats().GetXPosition()-1, enemyStats.GetMonsterStats().GetYPosition());
-			enemyDirection = -1;
 		}
 	}
 	
 	public void MoveEnemyRight()
 	{
+		enemyDirection = 1;
 		if (InBounds(enemyStats.GetMonsterStats().GetXPosition()+1, enemyStats.GetMonsterStats().GetYPosition()) &&
 		    this.arenaCellData[enemyStats.GetMonsterStats().GetYPosition(), enemyStats.GetMonsterStats().GetXPosition()+1] == 0)
 		{
 			LerpEnemyTo(enemyStats.GetMonsterStats().GetXPosition()+1, enemyStats.GetMonsterStats().GetYPosition());
-			enemyDirection = 1;
 		}
 	}
 
@@ -403,12 +428,25 @@ public class GameplayMechanics : MonoBehaviour
 		if(InBounds(enemyStats.GetMonsterStats().GetXPosition()+enemyDirection, enemyStats.GetMonsterStats().GetYPosition()))
 		{
 			if (playerStats.GetMonsterStats().GetXPosition() == enemyStats.GetMonsterStats().GetXPosition() + enemyDirection &&
-			    playerStats.GetMonsterStats().GetYPosition() == enemyStats.GetMonsterStats().GetYPosition())
+			    playerStats.GetMonsterStats().GetYPosition() == enemyStats.GetMonsterStats().GetYPosition() && !isPlayerDefending)
 			{
 				playerStats.GetMonsterStats().DamageMonster(1);
 				gameUI.SetPlayerHealth(playerStats.GetMonsterStats().Health);
+				if (enemyDirection == 1)
+				{
+					playerInstructions.AddFirst(4);
+				}
+				else if(enemyDirection == -1)
+				{
+					playerInstructions.AddFirst(3);
+				}
 			}
 		}
+	}
+
+	public void EnemyDefend()
+	{
+		this.isEnemyDefending = true;
 	}
 	
 	public void SetEnemyInstructions(LinkedList<int> enemyInstructions)
@@ -446,6 +484,18 @@ public class GameplayMechanics : MonoBehaviour
 	public EnemyMechanics GetEnemyStats()
 	{
 		return this.enemyStats;
+	}
+	
+	public void LoadMonsterTiles(List<int> instructions)
+	{
+		for (int i = 0; i < instructions.Count; i++)
+		{
+			GameObject monsterTile = Instantiate(monsterTiles[instructions[i]]);
+			monsterTile.transform.SetParent(instructionsGameObject.transform.GetChild(4));
+			monsterTile.transform.position = new Vector3(0, 0 ,0);
+			monsterTile.transform.localPosition = new Vector3(-3+i, 0 ,0);
+			monsterTile.transform.localScale = new Vector3(0.25f, 0.25f , 0.25f);
+		}
 	}
 
 }

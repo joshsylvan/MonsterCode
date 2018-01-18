@@ -52,13 +52,17 @@ public class GameManager : MonoBehaviour
 		gameplayObject.SetActive(true);
 		menuCooldown = ogMenuCooldown;
 		gameplayMechanics.InitGame();
-		gameplayMechanics.LoadLevel(1, 5, 4, 5);
+		gameplayMechanics.LoadLevel(1, 5, 4, 5, levels.GetLevel(currentLevel)[currentLevelphase]);
 	}
 
 	public void OnGoButtonClick(List<int> playerInstructions)
 	{
 		this.gameplayMechanics.SetPlayerInstructions(ParseInstructions(playerInstructions));
 		this.gameplayMechanics.SetEnemyInstructions(ParseInstructions(levels.GetLevel(currentLevel)[currentLevelphase]));
+		for (int i = 0; i < tileObject.transform.GetChild(1).childCount; i++)
+		{
+			Destroy(tileObject.transform.GetChild(1).GetChild(0).gameObject);
+		}
 		this.tileObject.SetActive(false);
 		inInstructions = false;
 		this.gameplayMechanics.PerformInstructions();
@@ -66,38 +70,50 @@ public class GameManager : MonoBehaviour
 
 	LinkedList<int> ParseInstructions(List<int> instructions)
 	{
+		bool skip = false;
 		LinkedList<int> instructionQueue = new LinkedList<int>();
 		for (int i = 0; i < instructions.Count; i++)
 		{
-			switch (instructions[i])
+			if (!skip)
 			{
-				case 0: //Defence
-					break;
-				case 1: //Fight
-					instructionQueue.AddFirst(5);
-					break;
-				case 2: // jump
-					instructionQueue.AddLast(2);
-					if (i+1 < instructions.Count && instructions[i + 1] == 3)
-					{
+				switch (instructions[i])
+				{
+					case 0: //Defence
+						instructionQueue.AddLast(6);
+						break;
+					case 1: //Fight
+						instructionQueue.AddLast(5);
+						break;
+					case 2: // jump
+						instructionQueue.AddLast(2);
+						if (i + 1 < instructions.Count && instructions[i + 1] == 3)
+						{
+							instructionQueue.AddLast(3);
+							skip = true;
+						}
+						else if (i + 1 < instructions.Count && instructions[i + 1] == 4)
+						{
+							instructionQueue.AddLast(4);
+							skip = true;
+						}
+
+						instructionQueue.AddLast(1);
+						break;
+					case 3: //left
 						instructionQueue.AddLast(3);
-					} 
-					else if (i+1 < instructions.Count && instructions[i + 1] == 4)
-					{
+						break;
+					case 4: //right
 						instructionQueue.AddLast(4);
-					}
-					instructionQueue.AddLast(1);
-					break;
-				case 3: //left
-					instructionQueue.AddLast(3);
-					break;
-				case 4: //right
-					instructionQueue.AddLast(4);
-					break;
-				case 5: // special
-					break;
-				default:
-					break;
+						break;
+					case 5: // special
+						break;
+					default:
+						break;
+				}
+			}
+			else
+			{
+				skip = false;
 			}
 		}
 		return instructionQueue;

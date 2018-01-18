@@ -28,7 +28,7 @@ public class GameUIManager : MonoBehaviour
 	void Update () {
 		
 	}
-
+	
 	public void SetEnemyHealth(int health)
 	{
 		if (health <= enemyHealth.transform.childCount)
