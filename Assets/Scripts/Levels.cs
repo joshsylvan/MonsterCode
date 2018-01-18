@@ -11,9 +11,9 @@ public class Levels
 	{
 		levels = new List<List<List<int>>>();
 		level_1 = new List<List<int>>(){
-			new List<int> {3, 3, 3},
-			new List<int> {3, 3, 3},
-			new List<int> {3, 3, 3}
+			new List<int> {3, 3, 1},
+			new List<int> {4, 4, 4},
+			new List<int> {1, 1, 2}
 		};
 		
 		level_2 = new List<List<int>>(){

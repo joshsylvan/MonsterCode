@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 		this.gameplayMechanics.SetEnemyInstructions(ParseInstructions(levels.GetLevel(currentLevel)[currentLevelphase]));
 		for (int i = 0; i < tileObject.transform.GetChild(1).childCount; i++)
 		{
-			Destroy(tileObject.transform.GetChild(1).GetChild(0).gameObject);
+			Destroy(tileObject.transform.GetChild(1).GetChild(i).gameObject);
 		}
 		this.tileObject.SetActive(false);
 		inInstructions = false;
