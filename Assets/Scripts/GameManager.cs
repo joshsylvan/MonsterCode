@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 	private CameraMenuMovement camera;
 	
 	private Levels levels;
-	int currentLevel = 0, currentLevelphase = 0;
+	public static int currentLevel = 0, currentLevelphase = 0;
 
 	private float menuCooldown = 1f, ogMenuCooldown = 1f;
 

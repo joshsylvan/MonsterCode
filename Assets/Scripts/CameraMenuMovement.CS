@@ -42,5 +42,4 @@ public class CameraMenuMovement : MonoBehaviour
 		cameraSpeed = 1f;
 	}
 	
-	
 }

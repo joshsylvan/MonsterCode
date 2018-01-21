@@ -32,6 +32,7 @@ public class GameplayMechanics : MonoBehaviour
 
 	private float coolDownTimer = 3f, OGCoolDownTimer = 7f;
 	private bool hasCoolDownStarted = false;
+	private bool loadNextPhase = false;
 
 	private void Awake()
 	{
@@ -115,6 +116,11 @@ public class GameplayMechanics : MonoBehaviour
 				if (this.IsCoolDownOver() && !performInstructions)
 				{
 					GameManager.inInstructions = true;
+					if (loadNextPhase)
+					{
+						loadNextPhase = false;
+						GameManager.currentLevelphase++;
+					}
 				}
 				//Move Player
 				if (performInstructions && IsEnemyReady() && IsPlayerReady())
@@ -336,6 +342,7 @@ public class GameplayMechanics : MonoBehaviour
 			{
 				enemyStats.GetMonsterStats().DamageMonster(1);
 				gameUI.SetEnemyHealth(enemyStats.GetMonsterStats().Health);
+				this.loadNextPhase = true;
 				if (playerDirection == 1)
 				{
 					enemyInstructions.AddFirst(4);
@@ -425,14 +432,11 @@ public class GameplayMechanics : MonoBehaviour
 	
 	public void EnemyAttack()
 	{
-		Debug.Log("1");
 		if(InBounds(enemyStats.GetMonsterStats().GetXPosition()+enemyDirection, enemyStats.GetMonsterStats().GetYPosition()))
 		{
-			Debug.Log("2");
 			if (playerStats.GetMonsterStats().GetXPosition() == enemyStats.GetMonsterStats().GetXPosition() + enemyDirection &&
 			    playerStats.GetMonsterStats().GetYPosition() == enemyStats.GetMonsterStats().GetYPosition())
 			{
-				Debug.Log("3");
 				playerStats.GetMonsterStats().DamageMonster(1);
 				gameUI.SetPlayerHealth(playerStats.GetMonsterStats().Health);
 				if (enemyDirection == 1)
