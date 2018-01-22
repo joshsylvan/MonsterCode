@@ -34,7 +34,7 @@ public class Gameplay : MonoBehaviour
 		
 		gm.instructionTiles.SetActive(false);
 		
-		StartCoolDownTimer(1);
+		StartCoolDownTimer(10);
 	}
 
 	// Use this for initialization

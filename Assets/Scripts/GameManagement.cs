@@ -165,6 +165,16 @@ public class GameManagement : MonoBehaviour
 		InInstructions = false;
 		this.GetComponent<Gameplay>().PerformInstructions();
 	}
+
+	public void ZoomIntoAttack()
+	{
+		Camera.main.GetComponent<CameraGameMovement>().ZoomIntoAttack(playerMechanics.gameObject, enemyMechanics.gameObject);
+	}
+	
+	public void ZoomOutOfAttack()
+	{
+		Camera.main.GetComponent<CameraGameMovement>().MoveToGame();
+	}
 	
 	public bool InBounds(int x, int y)
 	{

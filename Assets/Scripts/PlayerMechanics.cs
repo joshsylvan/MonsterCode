@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerMechanics : MonoBehaviour
@@ -20,7 +19,8 @@ public class PlayerMechanics : MonoBehaviour
 	private bool isPlayerLerping = false, loadNextPhase = false, isPlayerDefending = false;
 
 
-	private bool animationsEnabled = true, walking = false, attacking = false;
+	private bool animationsEnabled = true, walking = false;
+	bool attacking = false, inAttackAnimation = false;
 	private Animator anim;
 	
 	private void Awake()
@@ -40,7 +40,25 @@ public class PlayerMechanics : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		if (isPlayerLerping)
+		if (attacking)
+		{
+			if (anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !inAttackAnimation)
+			{
+				inAttackAnimation = true;
+			}
+
+			if (inAttackAnimation)
+			{
+				if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+				{
+					attacking = false;
+					inAttackAnimation = false;
+					gm.ZoomOutOfAttack();
+					
+				}	
+			}
+		}
+		 else if (isPlayerLerping)
 		{
 			Vector2 newPos = Vector2.MoveTowards(transform.position, playerNewPosition, Time.deltaTime * movementSpeed);
 			transform.position = newPos;
@@ -52,13 +70,6 @@ public class PlayerMechanics : MonoBehaviour
 					walking = false;
 					anim.SetTrigger("Idle");
 				}
-			}
-		}
-		if(attacking)
-		{
-			if (anim.GetCurrentAnimatorStateInfo(0).IsTag("Idle"))
-			{
-				attacking = false;
 			}
 		}
 	}
@@ -135,7 +146,6 @@ public class PlayerMechanics : MonoBehaviour
 	public void PlayerAttack()
 	{
 		attacking = true;
-		isPlayerLerping = false;
 		anim.SetTrigger("Attack");
 		if (gm.InBounds(monsterStats.GetXPosition() + playerDirection, monsterStats.GetYPosition()))
 		{
@@ -143,10 +153,10 @@ public class PlayerMechanics : MonoBehaviour
 			    gm.GetEnemyMechanics().GetMonsterStats().GetYPosition() == monsterStats.GetYPosition() &&
 			    !gm.GetEnemyMechanics().IsEnemyDefending())
 			{
-					Debug.Log(gm.GetEnemyMechanics().GetMonsterStats().GetXPosition() + " = " + monsterStats.GetXPosition());
 				gm.GetEnemyMechanics().GetMonsterStats().DamageMonster(1);
 				gm.SetEnemyHealth(gm.GetEnemyMechanics().GetMonsterStats().Health);
 				this.loadNextPhase = true;
+				gm.ZoomIntoAttack();
 				if (playerDirection == 1)
 				{
 					gm.GetEnemyMechanics().GetInstructions().AddFirst(4);
