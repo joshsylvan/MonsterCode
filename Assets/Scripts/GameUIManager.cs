@@ -5,11 +5,15 @@ using UnityEngine;
 public class GameUIManager : MonoBehaviour
 {
 
-	public GameObject playerHealth, enemyHealth;
+	public GameObject playerHealth, enemyHealth, tileObject;
 	public GameObject countDown;
+	public GameObject[] monsterTiles;
+	
 
 	private void Awake()
 	{
+		monsterTiles = Resources.LoadAll<GameObject>("Prefab/MonsterTiles");
+		
 		this.playerHealth = transform.GetChild(0).gameObject;
 		this.enemyHealth = transform.GetChild(1).gameObject;
 		this.countDown = transform.GetChild(2).gameObject;
@@ -68,5 +72,18 @@ public class GameUIManager : MonoBehaviour
 			}
 		}
 	}
+
+	public void SetEnemyInstructions(List<int> instructions)
+	{
+		for (int i = 0; i < instructions.Count; i++)
+		{
+			GameObject monsterTile = Instantiate(monsterTiles[instructions[i]]);
+			monsterTile.transform.SetParent(tileObject.transform.GetChild(4).GetChild(0));
+			monsterTile.transform.position = new Vector3(0, 0 ,0);
+			monsterTile.transform.localPosition = new Vector3(-3+i, 0 ,0);
+			monsterTile.transform.localScale = new Vector3(0.25f, 0.25f , 0.25f);
+		}
+		tileObject.transform.GetChild(4).GetChild(0).localPosition = new Vector3( ((float) instructions.Count)/2f, 0, 0);
 	
+	}
 }

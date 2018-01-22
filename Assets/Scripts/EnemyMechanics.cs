@@ -53,6 +53,11 @@ public class EnemyMechanics : MonoBehaviour {
 	public void MoveEnemyLeft()
 	{
 		enemyDirection = -1;
+		this.transform.localScale = new Vector3(
+			Mathf.Abs(this.transform.localScale.x) * enemyDirection,
+			this.transform.localScale.y,
+			this.transform.localScale.z
+		);
 		if (gm.InBounds(monsterStats.GetXPosition()-1, monsterStats.GetYPosition()) && 
 		    gm.GetArenaCellData()[monsterStats.GetYPosition(), monsterStats.GetXPosition()-1] == 0)
 		{
@@ -63,6 +68,11 @@ public class EnemyMechanics : MonoBehaviour {
 	public void MoveEnemyRight()
 	{
 		enemyDirection = 1;
+		this.transform.localScale = new Vector3(
+			Mathf.Abs(this.transform.localScale.x) * enemyDirection,
+			this.transform.localScale.y,
+			this.transform.localScale.z
+		);
 		if (gm.InBounds(monsterStats.GetXPosition()+1, monsterStats.GetYPosition()) &&
 		    gm.GetArenaCellData()[monsterStats.GetYPosition(), monsterStats.GetXPosition()+1] == 0)
 		{

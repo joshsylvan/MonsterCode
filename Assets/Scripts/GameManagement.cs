@@ -6,23 +6,35 @@ using UnityEngine.UI;
 public class GameManagement : MonoBehaviour
 {
 
+	public static bool InGame = false, InInstructions = false;
+
 	public PlayerMechanics playerMechanics;
 	public EnemyMechanics enemyMechanics;
 
-	public GameObject gameUI;
+	public GameUIManager gameUI;
 	public GameObject instructionTiles;
 
 	public Image fadeImage;
 	private bool fadeIn = true;
 	private float fadeSpeed = 5f;
 
+	private Levels levels;
 
 	private GameObject arenaGameObject, environment;
 	private GameObject[,] arenaCells;
 	private int[,] arenaCellData;
 
+	public static int currentLevel = 0, currentPhase = 0;
+
+	private void Awake()
+	{
+		levels = new Levels();
+	}
+
 	void InitGame()
 	{
+		InGame = true;
+		InInstructions = false;
 		this.environment = GameObject.Find("Environment");
 		this.arenaGameObject = environment.transform.GetChild(0).gameObject;
 		this.arenaCells = new GameObject[6,6];
@@ -43,6 +55,25 @@ public class GameManagement : MonoBehaviour
 				}
 			}
 		}
+		LoadLevel(1, 5, 4, 5, levels.GetLevel(currentLevel)[currentPhase]);
+	}
+
+	void LoadLevel(int playerX, int playerY, int enemyX, int enemyY, List<int> enemyInstructions )
+	{
+		playerMechanics.gameObject.transform.position = arenaCells[playerY, playerX].transform.position;
+		this.arenaCellData[playerY, playerX] = 2;
+		playerMechanics.GetMonsterStats().SetPosition(playerX, playerY);
+		
+		enemyMechanics.gameObject.transform.position = arenaCells[enemyY, enemyX].transform.position;
+		enemyMechanics.GetMonsterStats().SetPosition(enemyX, enemyY);
+		this.arenaCellData[enemyY, enemyX] = 3;
+		
+		this.gameUI.SetPlayerHealth(this.playerMechanics.GetMonsterStats().Health);
+		this.gameUI.SetEnemyHealth(this.enemyMechanics.GetMonsterStats().Health);
+		
+		this.gameUI.SetEnemyInstructions(enemyInstructions);
+		
+		this.GetComponent<Gameplay>().InitGame();
 	}
 	
 	// Use this for initialization
@@ -60,8 +91,15 @@ public class GameManagement : MonoBehaviour
 			{
 				Camera.main.GetComponent<CameraGameMovement>().MoveToGame();
 				fadeIn = false;
+				fadeImage.color = new Color(0, 0, 0, 0);
+				InitGame();
 			}
 		}
+	}
+	
+	public void ShowInstructionUI()
+	{
+		this.instructionTiles.SetActive(true);
 	}
 	
 	LinkedList<int> ParseInstructions(List<int> instructions)
@@ -114,6 +152,19 @@ public class GameManagement : MonoBehaviour
 		}
 		return instructionQueue;
 	}
+
+	public void OnGoButtonClick(List<int> instructions)
+	{
+		this.playerMechanics.SetPlayerInstructions(ParseInstructions(instructions));
+		this.enemyMechanics.SetEnemyInstructions(ParseInstructions(levels.GetLevel(currentLevel)[currentPhase]));
+		for (int i = 0; i < instructionTiles.transform.GetChild(1).childCount; i++)
+		{
+			Destroy(instructionTiles.transform.GetChild(1).GetChild(i).gameObject);
+		}
+		this.instructionTiles.SetActive(false);
+		InInstructions = false;
+		this.GetComponent<Gameplay>().PerformInstructions();
+	}
 	
 	public bool InBounds(int x, int y)
 	{
@@ -132,12 +183,17 @@ public class GameManagement : MonoBehaviour
 
 	public void SetPlayerHealth(int i)
 	{
-		
+		gameUI.SetPlayerHealth(i);
 	}
 	
 	public void SetEnemyHealth(int i)
 	{
-		
+		gameUI.SetEnemyHealth(i);
+	}
+
+	public void SetEnemyInstructions(List<int> instructions)
+	{
+		gameUI.SetEnemyInstructions(instructions);
 	}
 
 	public PlayerMechanics GetPlayerMechanics()

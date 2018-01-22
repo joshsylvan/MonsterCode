@@ -81,7 +81,8 @@ public class TileManagement : MonoBehaviour {
 //			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 			if( hit.collider != null && hit.collider.name == "GoButton")
 			{
-				GameObject.Find("GameManager").GetComponent<GameManager>().OnGoButtonClick(GetInstructionChain());
+//				GameObject.Find("GameManager").GetComponent<GameManager>().OnGoButtonClick(GetInstructionChain());
+				GameObject.Find("GameManager").GetComponent<GameManagement>().OnGoButtonClick(GetInstructionChain());
 			}
 			
 		}
