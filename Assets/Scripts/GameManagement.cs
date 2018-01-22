@@ -26,6 +26,9 @@ public class GameManagement : MonoBehaviour
 
 	public static int currentLevel = 0, currentPhase = 0;
 
+	private float cameraZoomoutCooldown, ogCameraZoomoutCooldown = 1.5f;
+	private bool cameraZooming = false;
+
 	private void Awake()
 	{
 		levels = new Levels();
@@ -83,6 +86,17 @@ public class GameManagement : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (cameraZooming)
+		{
+			this.cameraZoomoutCooldown -= Time.deltaTime;
+			if (this.cameraZoomoutCooldown <= 0)
+			{
+				ZoomOutOfAttack();
+				cameraZooming = false;
+			}
+		}
+		
 		if (fadeIn)
 		{
 			float newAlpha = Mathf.Lerp(fadeImage.color.a, 0, Time.deltaTime*fadeSpeed);
@@ -99,7 +113,13 @@ public class GameManagement : MonoBehaviour
 	
 	public void ShowInstructionUI()
 	{
-		this.instructionTiles.SetActive(true);
+//		this.instructionTiles.SetActive(true);
+		this.gameUI.ShowInstructions();
+	}
+
+	public void HideInstructionUI()
+	{
+		this.gameUI.HideInstructions();
 	}
 	
 	LinkedList<int> ParseInstructions(List<int> instructions)
@@ -161,13 +181,16 @@ public class GameManagement : MonoBehaviour
 		{
 			Destroy(instructionTiles.transform.GetChild(1).GetChild(i).gameObject);
 		}
-		this.instructionTiles.SetActive(false);
+//		this.instructionTiles.SetActive(false);
+		this.gameUI.HideInstructions();
 		InInstructions = false;
 		this.GetComponent<Gameplay>().PerformInstructions();
 	}
 
 	public void ZoomIntoAttack()
 	{
+		this.cameraZooming = true;
+		this.cameraZoomoutCooldown = this.ogCameraZoomoutCooldown;
 		Camera.main.GetComponent<CameraGameMovement>().ZoomIntoAttack(playerMechanics.gameObject, enemyMechanics.gameObject);
 	}
 	

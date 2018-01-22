@@ -32,9 +32,9 @@ public class Gameplay : MonoBehaviour
 		playerMechanics = gm.GetPlayerMechanics();
 		enemyMechanics = gm.GetEnemyMechanics();
 		
-		gm.instructionTiles.SetActive(false);
+		gm.HideInstructionUI();
 		
-		StartCoolDownTimer(10);
+		StartCoolDownTimer(1);
 	}
 
 	// Use this for initialization

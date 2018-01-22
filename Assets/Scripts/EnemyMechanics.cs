@@ -17,10 +17,21 @@ public class EnemyMechanics : MonoBehaviour {
 
 	private bool isEnemyLerping = false, loadNextPhase = false, isEnemyDefending = false;
 
+	private bool animationsEnabled = true, walking = false;
+	private bool attacking = false, inAttackAnimation = false;
+	private Animator anim;
+	
+	private bool damageAnimationQueued = false;
+	private float damageAnimationCooldown = 0.5f, ogDamageAnimationCooldown = 0.5f;
+	
 	private void Awake()
 	{
 		this.monsterStats = new MonsterStats();
 		gm = GameObject.Find("GameManager").GetComponent<GameManagement>();
+		if (animationsEnabled)
+		{
+			anim = this.transform.GetChild(0).GetComponent<Animator>();
+		}
 	}
 
 	// Use this for initialization
@@ -30,13 +41,45 @@ public class EnemyMechanics : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (isEnemyLerping)
+
+		if (damageAnimationQueued)
 		{
-			Vector2 newPos = Vector2.Lerp(transform.position, enemyNewPosition, Time.deltaTime * movementSpeed);
+			this.damageAnimationCooldown -= Time.deltaTime;
+			if (this.damageAnimationCooldown <= 0)
+			{
+				PlayDamageAnimation();
+				damageAnimationQueued = false;
+			}
+		}
+		
+		if (attacking)
+		{
+			if (anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !inAttackAnimation)
+			{
+				inAttackAnimation = true;
+			}
+
+			if (inAttackAnimation)
+			{
+				if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+				{
+					attacking = false;
+					inAttackAnimation = false;
+				}	
+			}
+		}
+		else if (isEnemyLerping)
+		{
+			Vector2 newPos = Vector2.MoveTowards(transform.position, enemyNewPosition, Time.deltaTime * movementSpeed);
 			transform.position = newPos;
 			if (Vector2.Distance(transform.position, enemyNewPosition) < minimumDistance)
 			{
 				isEnemyLerping = false;
+				if (walking)
+				{
+					walking = false;
+					anim.SetTrigger("Idle");
+				}
 			}
 		}
 	}
@@ -61,6 +104,9 @@ public class EnemyMechanics : MonoBehaviour {
 		if (gm.InBounds(monsterStats.GetXPosition()-1, monsterStats.GetYPosition()) && 
 		    gm.GetArenaCellData()[monsterStats.GetYPosition(), monsterStats.GetXPosition()-1] == 0)
 		{
+			this.walking = true;
+			this.attacking = false;
+			anim.SetTrigger("Walk");
 			LerpEnemyTo(monsterStats.GetXPosition()-1, monsterStats.GetYPosition());
 		}
 	}
@@ -76,6 +122,9 @@ public class EnemyMechanics : MonoBehaviour {
 		if (gm.InBounds(monsterStats.GetXPosition()+1, monsterStats.GetYPosition()) &&
 		    gm.GetArenaCellData()[monsterStats.GetYPosition(), monsterStats.GetXPosition()+1] == 0)
 		{
+			this.walking = true;
+			this.attacking = false;
+			anim.SetTrigger("Walk");
 			LerpEnemyTo(monsterStats.GetXPosition()+1, monsterStats.GetYPosition());
 		}
 	}
@@ -100,6 +149,8 @@ public class EnemyMechanics : MonoBehaviour {
 	
 	public void EnemyAttack()
 	{
+		attacking = true;
+		anim.SetTrigger("Attack");
 		if(gm.InBounds(monsterStats.GetXPosition()+enemyDirection, monsterStats.GetYPosition()))
 		{
 			if (gm.GetPlayerMechanics().GetMonsterStats().GetXPosition() == monsterStats.GetXPosition() + enemyDirection &&
@@ -107,16 +158,35 @@ public class EnemyMechanics : MonoBehaviour {
 			{
 				gm.GetPlayerMechanics().GetMonsterStats().DamageMonster(1);
 				gm.SetPlayerHealth(gm.GetPlayerMechanics().GetMonsterStats().Health);
-				if (enemyDirection == 1)
-				{
-					gm.GetPlayerMechanics().GetInstructions().AddFirst(4);
-				}
-				else if(enemyDirection == -1)
-				{
-					gm.GetPlayerMechanics().GetInstructions().AddFirst(3);
-				}
+				gm.ZoomIntoAttack();
+				gm.GetPlayerMechanics().QueueDamageAnimation();
+//				if (enemyDirection == 1)
+//				{
+//					gm.GetPlayerMechanics().GetInstructions().AddFirst(4);
+//				}
+//				else if(enemyDirection == -1)
+//				{
+//					gm.GetPlayerMechanics().GetInstructions().AddFirst(3);
+//				}
 			}
 		}
+	}
+
+	public void QueueDamageAnimation()
+	{
+		this.damageAnimationQueued = true;
+		this.damageAnimationCooldown = this.ogDamageAnimationCooldown;
+
+	}
+	
+	public void PlayDamageAnimation()
+	{
+		anim.SetTrigger("Damage");
+		anim.ResetTrigger("Attack");
+		anim.ResetTrigger("Walk");
+		anim.ResetTrigger("Idle");
+		attacking = false;
+		walking = false;
 	}
 
 	public void EnemyDefend()
@@ -139,7 +209,14 @@ public class EnemyMechanics : MonoBehaviour {
 
 	public bool IsEnemyReady()
 	{
-		return !isEnemyLerping;
+		if (!attacking && !isEnemyLerping && !damageAnimationQueued)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	public MonsterStats GetMonsterStats()

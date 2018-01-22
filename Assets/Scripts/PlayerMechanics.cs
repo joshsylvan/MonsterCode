@@ -22,6 +22,8 @@ public class PlayerMechanics : MonoBehaviour
 	private bool animationsEnabled = true, walking = false;
 	bool attacking = false, inAttackAnimation = false;
 	private Animator anim;
+	private bool damageAnimationQueued = false;
+	private float damageAnimationCooldown = 0.5f, ogDamageAnimationCooldown = 0.5f;
 	
 	private void Awake()
 	{
@@ -40,6 +42,17 @@ public class PlayerMechanics : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
+		
+		if (damageAnimationQueued)
+		{
+			this.damageAnimationCooldown -= Time.deltaTime;
+			if (this.damageAnimationCooldown <= 0)
+			{
+				PlayDamageAnimation();
+				damageAnimationQueued = false;
+			}
+		}
+		
 		if (attacking)
 		{
 			if (anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && !inAttackAnimation)
@@ -53,8 +66,6 @@ public class PlayerMechanics : MonoBehaviour
 				{
 					attacking = false;
 					inAttackAnimation = false;
-					gm.ZoomOutOfAttack();
-					
 				}	
 			}
 		}
@@ -157,18 +168,36 @@ public class PlayerMechanics : MonoBehaviour
 				gm.SetEnemyHealth(gm.GetEnemyMechanics().GetMonsterStats().Health);
 				this.loadNextPhase = true;
 				gm.ZoomIntoAttack();
-				if (playerDirection == 1)
-				{
-					gm.GetEnemyMechanics().GetInstructions().AddFirst(4);
-				}
-				else if (playerDirection == -1)
-				{
-					gm.GetEnemyMechanics().GetInstructions().AddFirst(3);
-				}
+				gm.GetEnemyMechanics().QueueDamageAnimation();
+				
+//				if (playerDirection == 1)
+//				{
+//					gm.GetEnemyMechanics().GetInstructions().AddFirst(4);
+//				}
+//				else if (playerDirection == -1)
+//				{
+//					gm.GetEnemyMechanics().GetInstructions().AddFirst(3);
+//				}
 			}
 		}
 	}
+	
+	public void QueueDamageAnimation()
+	{
+		this.damageAnimationQueued = true;
+		this.damageAnimationCooldown = this.ogDamageAnimationCooldown;
+	}
 
+	public void PlayDamageAnimation()
+	{
+		anim.SetTrigger("Damage");
+		anim.ResetTrigger("Attack");
+		anim.ResetTrigger("Walk");
+		anim.ResetTrigger("Idle");
+		attacking = false;
+		walking = false;
+	}
+	
 	public void PlayerDefend()
 	{
 		this.isPlayerDefending = true;
@@ -189,7 +218,7 @@ public class PlayerMechanics : MonoBehaviour
 
 	public bool IsPlayerReady()
 	{
-		if (!attacking && !isPlayerLerping)
+		if (!attacking && !isPlayerLerping && !damageAnimationQueued)
 		{
 			return true;
 		}
