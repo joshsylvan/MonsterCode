@@ -67,7 +67,25 @@ public class MonsterSelector : MonoBehaviour
 
 	public void StartGame()
 	{
-		PlayerPrefs.SetInt("player_character", this.selectionIndex);
+		switch (this.selectionIndex)
+		{
+			case 0:
+				PlayerPrefs.SetString("player_character", "Skeleton");
+				break;
+			case 1:
+				PlayerPrefs.SetString("player_character", "Undead");
+				break;
+			case 2:
+				PlayerPrefs.SetString("player_character", "Knight");
+				break;
+			default:
+				PlayerPrefs.SetString("player_character", "Knight");
+				break;
+		}
+		PlayerPrefs.SetInt("current_level", 0);
+		PlayerPrefs.SetInt("current_phase", 0);
+		PlayerPrefs.SetInt("player_health", 3);
+		PlayerPrefs.SetInt("enemy_health", 3);
 //		SceneManager.LoadScene("GameNew");
 		fadeOut = true;
 	}

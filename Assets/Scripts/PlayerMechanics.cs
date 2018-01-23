@@ -29,20 +29,18 @@ public class PlayerMechanics : MonoBehaviour
 	{
 		this.monsterStats = new MonsterStats();
 		gm = GameObject.Find("GameManager").GetComponent<GameManagement>();
+	}
+
+	// Use this for initialization
+	void Start () {
 		if (animationsEnabled)
 		{
 			anim = this.transform.GetChild(0).GetComponent<Animator>();
 		}
 	}
-
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {
-		
 		if (damageAnimationQueued)
 		{
 			this.damageAnimationCooldown -= Time.deltaTime;
@@ -169,7 +167,8 @@ public class PlayerMechanics : MonoBehaviour
 				this.loadNextPhase = true;
 				gm.ZoomIntoAttack();
 				gm.GetEnemyMechanics().QueueDamageAnimation();
-				
+				gm.LoadNextPhase();
+
 //				if (playerDirection == 1)
 //				{
 //					gm.GetEnemyMechanics().GetInstructions().AddFirst(4);

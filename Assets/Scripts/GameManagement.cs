@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManagement : MonoBehaviour
@@ -8,6 +9,8 @@ public class GameManagement : MonoBehaviour
 
 	public static bool InGame = false, InInstructions = false;
 
+	public GameObject playerObject, enemyObject;
+	
 	public PlayerMechanics playerMechanics;
 	public EnemyMechanics enemyMechanics;
 
@@ -24,14 +27,53 @@ public class GameManagement : MonoBehaviour
 	private GameObject[,] arenaCells;
 	private int[,] arenaCellData;
 
-	public static int currentLevel = 0, currentPhase = 0;
+	public static int currentLevel, currentPhase, playerMonster;
+	private List<int> avaliableInstructions;
 
+	private bool loadNextPhase = false, replayPhase = false;
+	
+	
 	private float cameraZoomoutCooldown, ogCameraZoomoutCooldown = 1.5f;
 	private bool cameraZooming = false;
 
 	private void Awake()
 	{
+//		PlayerPrefs.SetInt("current_level", 0);
+//		PlayerPrefs.SetInt("current_phase", 0);
+//		PlayerPrefs.SetInt("player_health", 3);
+//		PlayerPrefs.SetInt("enemy_health", 3);
+//		PlayerPrefs.SetString("player_character", "Knight");
+
+
+		GameObject pO = Resources.Load("Prefab/Monsters/" + PlayerPrefs.GetString("player_character")) as GameObject;
+		pO = Instantiate(pO);
+		Vector3 scale = pO.transform.localScale;
+		pO.transform.SetParent(playerObject.transform);
+		pO.transform.localScale = scale;
+		
+		
 		levels = new Levels();
+		currentLevel = PlayerPrefs.GetInt("current_level");
+		currentPhase = PlayerPrefs.GetInt("current_phase");
+
+		switch (currentLevel)
+		{
+			case 0:
+				avaliableInstructions = levels.GetAvaliableTiles1();
+				break;
+			case 1:
+				avaliableInstructions = levels.GetAvaliableTiles2();
+				break;
+			case 2:
+				avaliableInstructions = levels.GetAvaliableTiles3();
+				break;
+			default:
+				avaliableInstructions = levels.GetAvaliableTiles1();
+				currentLevel = 0;
+				break;
+		}
+
+		gameUI.LoadAvaliableTiles(avaliableInstructions);
 	}
 
 	void InitGame()
@@ -66,27 +108,45 @@ public class GameManagement : MonoBehaviour
 		playerMechanics.gameObject.transform.position = arenaCells[playerY, playerX].transform.position;
 		this.arenaCellData[playerY, playerX] = 2;
 		playerMechanics.GetMonsterStats().SetPosition(playerX, playerY);
+		playerMechanics.GetMonsterStats().Health = PlayerPrefs.GetInt("player_health");
 		
 		enemyMechanics.gameObject.transform.position = arenaCells[enemyY, enemyX].transform.position;
 		enemyMechanics.GetMonsterStats().SetPosition(enemyX, enemyY);
 		this.arenaCellData[enemyY, enemyX] = 3;
+		enemyMechanics.GetMonsterStats().Health = PlayerPrefs.GetInt("enemy_health");
 		
-		this.gameUI.SetPlayerHealth(this.playerMechanics.GetMonsterStats().Health);
-		this.gameUI.SetEnemyHealth(this.enemyMechanics.GetMonsterStats().Health);
+		this.gameUI.SetPlayerHealth(PlayerPrefs.GetInt("player_health"));
+		this.gameUI.SetEnemyHealth(PlayerPrefs.GetInt("enemy_health"));
 		
 		this.gameUI.SetEnemyInstructions(enemyInstructions);
 		
 		this.GetComponent<Gameplay>().InitGame();
 	}
+
+	public void LoadNextPhase()
+	{
+		loadNextPhase = true;
+	}
+	
+	public void ReplayPhase()
+	{
+		replayPhase = true;
+	}
 	
 	// Use this for initialization
 	void Start () {
 		fadeImage.color = new Color(0, 0, 0, 1);
+		Debug.Log(currentPhase);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+		if (Input.GetKeyUp(KeyCode.Escape))
+		{
+			SceneManager.LoadScene("MenuNew");
+		}
+		
 		if (cameraZooming)
 		{
 			this.cameraZoomoutCooldown -= Time.deltaTime;
@@ -109,12 +169,47 @@ public class GameManagement : MonoBehaviour
 				InitGame();
 			}
 		}
+
+		if (loadNextPhase && InInstructions && !gameUI.IsMessageDisplaying())
+		{
+			currentPhase++;
+			if (currentPhase >= levels.GetLevel(currentLevel).Count)
+			{
+				currentPhase = 0;
+				currentLevel++;
+				PlayerPrefs.SetInt("player_health", 3);
+				PlayerPrefs.SetInt("enemy_health", 3+currentLevel);
+			}
+			else
+			{
+				PlayerPrefs.SetInt("player_health", playerMechanics.GetMonsterStats().Health);
+				PlayerPrefs.SetInt("enemy_health", enemyMechanics.GetMonsterStats().Health);
+			}
+			PlayerPrefs.SetInt("current_phase", currentPhase);
+			PlayerPrefs.SetInt("current_level", currentLevel);
+			gameUI.ShowWellDone();
+		}
+
+		if (!loadNextPhase && replayPhase && InInstructions && !gameUI.IsMessageDisplaying())
+		{
+			PlayerPrefs.SetInt("player_health", playerMechanics.GetMonsterStats().Health);
+			gameUI.ShowTryAgain();
+		}
+		
+		if (gameUI.IsMessageTimerFinished() && gameUI.IsMessageDisplaying())
+		{
+			SceneManager.LoadScene("GameNew");	
+		}
+		
 	}
 	
 	public void ShowInstructionUI()
 	{
 //		this.instructionTiles.SetActive(true);
-		this.gameUI.ShowInstructions();
+		if (!replayPhase)
+		{
+			this.gameUI.ShowInstructions();
+		}
 	}
 
 	public void HideInstructionUI()
@@ -237,5 +332,10 @@ public class GameManagement : MonoBehaviour
 	public EnemyMechanics GetEnemyMechanics()
 	{
 		return enemyMechanics;
+	}
+
+	public bool IsNextPhaseReady()
+	{
+		return loadNextPhase;
 	}
 }

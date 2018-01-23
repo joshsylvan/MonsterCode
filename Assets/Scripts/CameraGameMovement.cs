@@ -44,6 +44,7 @@ public class CameraGameMovement : MonoBehaviour {
 	public void MoveToGame()
 	{
 		currentTarget = gameTarget;
+		cameraSpeed = 1f;
 	}
 
 	public void ZoomIntoAttack(GameObject player, GameObject enemy)

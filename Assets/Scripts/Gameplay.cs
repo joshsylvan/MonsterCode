@@ -16,7 +16,6 @@ public class Gameplay : MonoBehaviour
 	
 	// Gameplay
 	private bool performInstructions = false;
-	private bool loadNextPhase = false;
 
 	private void Awake()
 	{
@@ -34,7 +33,7 @@ public class Gameplay : MonoBehaviour
 		
 		gm.HideInstructionUI();
 		
-		StartCoolDownTimer(1);
+		StartCoolDownTimer(8);
 	}
 
 	// Use this for initialization
@@ -61,11 +60,6 @@ public class Gameplay : MonoBehaviour
 				if (this.IsCoolDownOver() && !performInstructions)
 				{
 					GameManagement.InInstructions = true;
-					if (loadNextPhase)
-					{
-						loadNextPhase = false;
-						GameManager.currentLevelphase++;
-					}
 				}
 				
 				if (performInstructions)
@@ -75,7 +69,10 @@ public class Gameplay : MonoBehaviour
 			}
 			else
 			{
-				gm.ShowInstructionUI();
+				if (!gm.IsNextPhaseReady())
+				{
+					gm.ShowInstructionUI();
+				}
 			}
 		}
 	}
@@ -204,6 +201,7 @@ public class Gameplay : MonoBehaviour
 		}
 		else
 		{
+			gm.ReplayPhase();
 			StartCoolDownTimer(3);
 			performInstructions = false;
 		}
