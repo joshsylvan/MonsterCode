@@ -164,10 +164,10 @@ public class PlayerMechanics : MonoBehaviour
 			{
 				gm.GetEnemyMechanics().GetMonsterStats().DamageMonster(1);
 				gm.SetEnemyHealth(gm.GetEnemyMechanics().GetMonsterStats().Health);
-				this.loadNextPhase = true;
+//				this.loadNextPhase = true;
 				gm.ZoomIntoAttack();
 				gm.GetEnemyMechanics().QueueDamageAnimation();
-				gm.LoadNextPhase();
+//				gm.LoadNextPhase();
 
 //				if (playerDirection == 1)
 //				{

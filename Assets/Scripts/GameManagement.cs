@@ -50,33 +50,41 @@ public class GameManagement : MonoBehaviour
 			fadeIn = true;
 		}
 
+		levels = new Levels();
+		
 		GameObject pO = Resources.Load("Prefab/Monsters/" + PlayerPrefs.GetString("player_character")) as GameObject;
 		pO = Instantiate(pO);
 		Vector3 scale = pO.transform.localScale;
 		pO.transform.SetParent(playerObject.transform);
 		pO.transform.localScale = scale;
+
+		Debug.Log(levels.GetLevel(currentLevel).GetEnemyName());
+		GameObject eo = Resources.Load("Prefab/Enemies/" + levels.GetLevel(currentLevel).GetEnemyName()) as GameObject;
+		eo = Instantiate(eo);
+		Vector3 scaleEnemy = eo.transform.localScale;
+		eo.transform.SetParent(enemyObject.transform);
+		eo.transform.localScale = scale;
 		
-		
-		levels = new Levels();
 		currentLevel = PlayerPrefs.GetInt("current_level");
 		currentPhase = PlayerPrefs.GetInt("current_phase");
 
-		switch (currentLevel)
-		{
-			case 0:
-				avaliableInstructions = levels.GetAvaliableTiles1();
-				break;
-			case 1:
-				avaliableInstructions = levels.GetAvaliableTiles2();
-				break;
-			case 2:
-				avaliableInstructions = levels.GetAvaliableTiles3();
-				break;
-			default:
-				avaliableInstructions = levels.GetAvaliableTiles1();
-				currentLevel = 0;
-				break;
-		}
+//		switch (currentLevel)
+//		{
+//			case 0:
+//				avaliableInstructions = levels.GetAvaliableTiles1();
+//				break;
+//			case 1:
+//				avaliableInstructions = levels.GetAvaliableTiles2();
+//				break;
+//			case 2:
+//				avaliableInstructions = levels.GetAvaliableTiles3();
+//				break;
+//			default:
+//				avaliableInstructions = levels.GetAvaliableTiles1();
+//				currentLevel = 0;
+//				break;
+//		}
+		avaliableInstructions = levels.GetLevel(currentLevel).GetAvaliableTiles();
 
 		gameUI.LoadAvaliableTiles(avaliableInstructions);
 
@@ -106,14 +114,11 @@ public class GameManagement : MonoBehaviour
 				}
 			}
 		}
-		LoadLevel(1, 5, 4, 5, levels.GetLevel(currentLevel)[currentPhase]);
-		Debug.Log("1");
+		LoadLevel(1, 5, 4, 5, levels.GetLevel(currentLevel).GetPhases()[currentPhase]);
 		if (SceneManager.GetActiveScene().name == "GameNewPhase")
 		{
-			Debug.Log("2");
 			fadeIn = true;
 		}
-		Debug.Log("3");
 	}
 
 	void LoadLevel(int playerX, int playerY, int enemyX, int enemyY, List<int> enemyInstructions )
@@ -126,10 +131,10 @@ public class GameManagement : MonoBehaviour
 		enemyMechanics.gameObject.transform.position = arenaCells[enemyY, enemyX].transform.position;
 		enemyMechanics.GetMonsterStats().SetPosition(enemyX, enemyY);
 		this.arenaCellData[enemyY, enemyX] = 3;
-		enemyMechanics.GetMonsterStats().Health = PlayerPrefs.GetInt("enemy_health");
+		enemyMechanics.GetMonsterStats().Health = levels.GetLevel(currentLevel).GetHeartsForPhase()[currentPhase];
 		
 		this.gameUI.SetPlayerHealth(PlayerPrefs.GetInt("player_health"));
-		this.gameUI.SetEnemyHealth(PlayerPrefs.GetInt("enemy_health"));
+		this.gameUI.SetEnemyHealth(enemyMechanics.GetMonsterStats().Health);
 		
 		this.gameUI.SetEnemyInstructions(enemyInstructions);
 		
@@ -150,7 +155,6 @@ public class GameManagement : MonoBehaviour
 	void Start () {
 		fadeImage.color = new Color(0, 0, 0, 1);
 		this.InitGame();
-		Debug.Log(currentPhase);
 	}
 	
 	// Update is called once per frame
@@ -187,12 +191,13 @@ public class GameManagement : MonoBehaviour
 		if (loadNextPhase && InInstructions && !gameUI.IsMessageDisplaying())
 		{
 			currentPhase++;
-			if (currentPhase >= levels.GetLevel(currentLevel).Count)
+			if (currentPhase >= levels.GetLevel(currentLevel).GetPhases().Count)
 			{
 				currentPhase = 0;
 				currentLevel++;
 				PlayerPrefs.SetInt("player_health", 3);
 				PlayerPrefs.SetInt("enemy_health", 3+currentLevel);
+				SceneManager.LoadScene("VS");
 			}
 			else
 			{
@@ -285,7 +290,7 @@ public class GameManagement : MonoBehaviour
 	public void OnGoButtonClick(List<int> instructions)
 	{
 		this.playerMechanics.SetPlayerInstructions(ParseInstructions(instructions));
-		this.enemyMechanics.SetEnemyInstructions(ParseInstructions(levels.GetLevel(currentLevel)[currentPhase]));
+		this.enemyMechanics.SetEnemyInstructions(ParseInstructions(levels.GetLevel(currentLevel).GetPhases()[currentPhase]));
 		for (int i = 0; i < instructionTiles.transform.GetChild(1).childCount; i++)
 		{
 			Destroy(instructionTiles.transform.GetChild(1).GetChild(i).gameObject);

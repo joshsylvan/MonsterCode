@@ -52,13 +52,13 @@ public class GameManager : MonoBehaviour
 		gameplayObject.SetActive(true);
 		menuCooldown = ogMenuCooldown;
 		gameplayMechanics.InitGame();
-		gameplayMechanics.LoadLevel(1, 5, 4, 5, levels.GetLevel(currentLevel)[currentLevelphase]);
+		gameplayMechanics.LoadLevel(1, 5, 4, 5, levels.GetLevel(currentLevel).GetPhases()[currentLevelphase]);
 	}
 
 	public void OnGoButtonClick(List<int> playerInstructions)
 	{
 		this.gameplayMechanics.SetPlayerInstructions(ParseInstructions(playerInstructions));
-		this.gameplayMechanics.SetEnemyInstructions(ParseInstructions(levels.GetLevel(currentLevel)[currentLevelphase]));
+		this.gameplayMechanics.SetEnemyInstructions(ParseInstructions(levels.GetLevel(currentLevel).GetPhases()[currentLevelphase]));
 		for (int i = 0; i < tileObject.transform.GetChild(1).childCount; i++)
 		{
 			Destroy(tileObject.transform.GetChild(1).GetChild(i).gameObject);

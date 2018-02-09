@@ -28,15 +28,15 @@ public class EnemyMechanics : MonoBehaviour {
 	{
 		this.monsterStats = new MonsterStats();
 		gm = GameObject.Find("GameManager").GetComponent<GameManagement>();
+	}
+	
+
+	// Use this for initialization
+	void Start () {
 		if (animationsEnabled)
 		{
 			anim = this.transform.GetChild(0).GetComponent<Animator>();
 		}
-	}
-
-	// Use this for initialization
-	void Start () {
-	
 	}
 	
 	// Update is called once per frame
@@ -81,6 +81,11 @@ public class EnemyMechanics : MonoBehaviour {
 					anim.SetTrigger("Idle");
 				}
 			}
+		}
+
+		if (this.monsterStats.Health <= 0)
+		{
+			gm.LoadNextPhase();
 		}
 	}
 	

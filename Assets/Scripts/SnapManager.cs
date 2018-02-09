@@ -54,35 +54,39 @@ public class SnapManager : MonoBehaviour {
 			}
 			else
 			{
-				float highestDistance = 0f;
-				for (int i = 0; i < tilesToLerp.Count; i++)
+				if (GameManager.inInstructions)
 				{
-					if (i == 0)
+					float highestDistance = 0f;
+					for (int i = 0; i < tilesToLerp.Count; i++)
 					{
-						Vector2 newPos = Vector2.Lerp(tilesToLerp[i].transform.position, 
-							transform.position,
-							Time.deltaTime * this.lerpSpeed);
-						this.tilesToLerp[i].transform.position = newPos;
-						if(highestDistance <= Vector2.Distance(newPos, this.transform.position))
+						if (i == 0)
 						{
-							highestDistance = Vector2.Distance(newPos, this.transform.position);
+							Vector2 newPos = Vector2.Lerp(tilesToLerp[i].transform.position,
+								transform.position,
+								Time.deltaTime * this.lerpSpeed);
+							this.tilesToLerp[i].transform.position = newPos;
+							if (highestDistance <= Vector2.Distance(newPos, this.transform.position))
+							{
+								highestDistance = Vector2.Distance(newPos, this.transform.position);
+							}
 						}
-					}
-					else
-					{
-						Vector2 newPos = Vector2.Lerp(tilesToLerp[i].transform.position, tilesToLerp[i-1].transform.GetChild(0).position,
-							Time.deltaTime * this.lerpSpeed);
-						this.tilesToLerp[i].transform.position = newPos;
-						if(highestDistance <= Vector2.Distance(newPos, tilesToLerp[i-1].transform.GetChild(0).position))
+						else
 						{
-							highestDistance = Vector2.Distance(newPos, tilesToLerp[i-1].transform.GetChild(0).position);
+							Vector2 newPos = Vector2.Lerp(tilesToLerp[i].transform.position,
+								tilesToLerp[i - 1].transform.GetChild(0).position,
+								Time.deltaTime * this.lerpSpeed);
+							this.tilesToLerp[i].transform.position = newPos;
+							if (highestDistance <= Vector2.Distance(newPos, tilesToLerp[i - 1].transform.GetChild(0).position))
+							{
+								highestDistance = Vector2.Distance(newPos, tilesToLerp[i - 1].transform.GetChild(0).position);
+							}
 						}
-					}
 
-					if (highestDistance <= 0.0001f)
-					{
-						this.isMoving = false;
-						this.tileToLerp = null;
+						if (highestDistance <= 0.0001f)
+						{
+							this.isMoving = false;
+							this.tileToLerp = null;
+						}
 					}
 				}
 			}
@@ -146,6 +150,11 @@ public class SnapManager : MonoBehaviour {
 	public GameObject GetAttachedTile()
 	{
 		return this.attachedTile;
+	}
+
+	public void ResetTiles()
+	{
+		tilesToLerp = null;
 	}
 
 }

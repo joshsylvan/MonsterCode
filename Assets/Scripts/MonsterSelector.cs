@@ -32,7 +32,7 @@ public class MonsterSelector : MonoBehaviour
 			if (fadeImage.color.a >= 0.95f)
 			{
 				fadeOut = false;
-				SceneManager.LoadScene("GameNew");
+				SceneManager.LoadScene("VS");
 			}
 		}
 		
