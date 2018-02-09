@@ -43,7 +43,7 @@ public class GameUIManager : MonoBehaviour
 		playerHealth.SetActive(true);
 		enemyHealth.SetActive(true);
 		countDown.SetActive(false);
-		
+		this.showInstructions = false;
 	}
 
 	// Use this for initialization

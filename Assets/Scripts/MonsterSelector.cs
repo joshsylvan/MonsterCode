@@ -89,6 +89,10 @@ public class MonsterSelector : MonoBehaviour
 //		SceneManager.LoadScene("GameNew");
 		fadeOut = true;
 	}
-	
+
+	public void OnClickExit()
+	{
+		Application.Quit();
+	}
 	
 }

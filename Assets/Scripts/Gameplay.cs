@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Gameplay : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class Gameplay : MonoBehaviour
 	// Gameplay
 	private bool performInstructions = false;
 
+	private bool gameSetUp = true;
+
 	private void Awake()
 	{
 		gm = GetComponent<GameManagement>();
@@ -32,8 +35,15 @@ public class Gameplay : MonoBehaviour
 		enemyMechanics = gm.GetEnemyMechanics();
 		
 		gm.HideInstructionUI();
-		
-		StartCoolDownTimer(8);
+
+		if (SceneManager.GetActiveScene().name == "GameNewPhase")
+		{
+			StartCoolDownTimer(3);
+		}
+		else
+		{
+			StartCoolDownTimer(8);
+		}
 	}
 
 	// Use this for initialization
@@ -71,7 +81,10 @@ public class Gameplay : MonoBehaviour
 			{
 				if (!gm.IsNextPhaseReady())
 				{
-					gm.ShowInstructionUI();
+					if (!this.gameSetUp)
+					{
+						gm.ShowInstructionUI();
+					}
 				}
 			}
 		}
@@ -96,6 +109,10 @@ public class Gameplay : MonoBehaviour
 		else
 		{
 			this.hasCoolDownStarted = false;
+			if (this.gameSetUp)
+			{
+				this.gameSetUp = false;
+			}
 			return true;
 		}
 	}

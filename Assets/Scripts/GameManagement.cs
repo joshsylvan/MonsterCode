@@ -18,7 +18,7 @@ public class GameManagement : MonoBehaviour
 	public GameObject instructionTiles;
 
 	public Image fadeImage;
-	private bool fadeIn = true;
+	private bool fadeIn = false;
 	private float fadeSpeed = 5f;
 
 	private Levels levels;
@@ -43,7 +43,12 @@ public class GameManagement : MonoBehaviour
 //		PlayerPrefs.SetInt("player_health", 3);
 //		PlayerPrefs.SetInt("enemy_health", 3);
 //		PlayerPrefs.SetString("player_character", "Knight");
-
+		
+		
+		if (SceneManager.GetActiveScene().name != "GameNewPhase")
+		{
+			fadeIn = true;
+		}
 
 		GameObject pO = Resources.Load("Prefab/Monsters/" + PlayerPrefs.GetString("player_character")) as GameObject;
 		pO = Instantiate(pO);
@@ -74,6 +79,7 @@ public class GameManagement : MonoBehaviour
 		}
 
 		gameUI.LoadAvaliableTiles(avaliableInstructions);
+
 	}
 
 	void InitGame()
@@ -101,6 +107,13 @@ public class GameManagement : MonoBehaviour
 			}
 		}
 		LoadLevel(1, 5, 4, 5, levels.GetLevel(currentLevel)[currentPhase]);
+		Debug.Log("1");
+		if (SceneManager.GetActiveScene().name == "GameNewPhase")
+		{
+			Debug.Log("2");
+			fadeIn = true;
+		}
+		Debug.Log("3");
 	}
 
 	void LoadLevel(int playerX, int playerY, int enemyX, int enemyY, List<int> enemyInstructions )
@@ -120,7 +133,7 @@ public class GameManagement : MonoBehaviour
 		
 		this.gameUI.SetEnemyInstructions(enemyInstructions);
 		
-		this.GetComponent<Gameplay>().InitGame();
+		this.GetComponent<Gameplay>().InitGame();	
 	}
 
 	public void LoadNextPhase()
@@ -136,6 +149,7 @@ public class GameManagement : MonoBehaviour
 	// Use this for initialization
 	void Start () {
 		fadeImage.color = new Color(0, 0, 0, 1);
+		this.InitGame();
 		Debug.Log(currentPhase);
 	}
 	
@@ -166,7 +180,7 @@ public class GameManagement : MonoBehaviour
 				Camera.main.GetComponent<CameraGameMovement>().MoveToGame();
 				fadeIn = false;
 				fadeImage.color = new Color(0, 0, 0, 0);
-				InitGame();
+//				InitGame();
 			}
 		}
 
@@ -198,7 +212,7 @@ public class GameManagement : MonoBehaviour
 		
 		if (gameUI.IsMessageTimerFinished() && gameUI.IsMessageDisplaying())
 		{
-			SceneManager.LoadScene("GameNew");	
+			SceneManager.LoadScene("GameNewPhase");	
 		}
 		
 	}

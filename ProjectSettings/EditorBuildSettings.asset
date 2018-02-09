@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameNew.unity
     guid: 75263a16a88fb4442a9201c871347fc9
+  - enabled: 1
+    path: Assets/Scenes/GameNewPhase.unity
+    guid: 8a2889d18b9194000a6d24e1b6f51f57
