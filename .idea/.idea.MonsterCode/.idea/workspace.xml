@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="31c73b58-1932-4b6a-bb8f-e0f3324f0443" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MonsterCode/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/.idea.MonsterCode/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameNew.unity" afterPath="$PROJECT_DIR$/Assets/Scenes/GameNew.unity" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MenuNew.unity" afterPath="$PROJECT_DIR$/Assets/Scenes/MenuNew.unity" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraGameMovement.cs" afterPath="$PROJECT_DIR$/Assets/Scripts/CameraGameMovement.cs" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManagement.cs" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManagement.cs" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameUIManager.cs" afterPath="$PROJECT_DIR$/Assets/Scripts/GameUIManager.cs" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Gameplay.cs" afterPath="$PROJECT_DIR$/Assets/Scripts/Gameplay.cs" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MonsterSelector.cs" afterPath="$PROJECT_DIR$/Assets/Scripts/MonsterSelector.cs" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" />
-    </list>
+    <list default="true" id="31c73b58-1932-4b6a-bb8f-e0f3324f0443" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -100,8 +89,8 @@
           <file leaf-file-name="GameManagement.cs" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Assets/Scripts/GameManagement.cs">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="285">
-                  <caret line="43" column="46" lean-forward="false" selection-start-line="43" selection-start-column="46" selection-end-line="43" selection-end-column="46" />
+                <state relative-caret-position="705">
+                  <caret line="71" column="19" lean-forward="false" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
                   <folding>
                     <marker date="1518173792902" expanded="false" signature="6:135" ph="..." />
                     <marker date="1518173792902" expanded="true" signature="180:8752" ph="{...}" />
@@ -581,12 +570,12 @@
       <workItem from="1516738821643" duration="3410000" />
       <workItem from="1516744232816" duration="5715000" />
       <workItem from="1518117835994" duration="3208000" />
-      <workItem from="1518173490071" duration="424000" />
+      <workItem from="1518173490071" duration="519000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86625000" />
+    <option name="totallyTimeSpent" value="86720000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1150,8 +1139,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/GameManagement.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="43" column="46" lean-forward="false" selection-start-line="43" selection-start-column="46" selection-end-line="43" selection-end-column="46" />
+        <state relative-caret-position="705">
+          <caret line="71" column="19" lean-forward="false" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
           <folding>
             <marker date="1518173792902" expanded="false" signature="6:135" ph="..." />
             <marker date="1518173792902" expanded="true" signature="180:8752" ph="{...}" />
