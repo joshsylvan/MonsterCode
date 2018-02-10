@@ -83,7 +83,10 @@ public class Gameplay : MonoBehaviour
 				{
 					if (!this.gameSetUp)
 					{
-						gm.ShowInstructionUI();
+						if (!playerMechanics.GetMonsterStats().IsDead())
+						{
+							gm.ShowInstructionUI();
+						}
 					}
 				}
 			}

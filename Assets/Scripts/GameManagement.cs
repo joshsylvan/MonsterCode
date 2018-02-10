@@ -30,12 +30,11 @@ public class GameManagement : MonoBehaviour
 	public static int currentLevel, currentPhase, playerMonster;
 	private List<int> avaliableInstructions;
 
-	private bool loadNextPhase = false, replayPhase = false;
-	
+	private bool loadNextPhase = false, replayPhase = false, initPlayerDeath = false;
 	
 	private float cameraZoomoutCooldown, ogCameraZoomoutCooldown = 1.5f;
 	private bool cameraZooming = false;
-
+	
 	private void Awake()
 	{
 //		PlayerPrefs.SetInt("current_level", 0);
@@ -68,22 +67,6 @@ public class GameManagement : MonoBehaviour
 		currentLevel = PlayerPrefs.GetInt("current_level");
 		currentPhase = PlayerPrefs.GetInt("current_phase");
 
-//		switch (currentLevel)
-//		{
-//			case 0:
-//				avaliableInstructions = levels.GetAvaliableTiles1();
-//				break;
-//			case 1:
-//				avaliableInstructions = levels.GetAvaliableTiles2();
-//				break;
-//			case 2:
-//				avaliableInstructions = levels.GetAvaliableTiles3();
-//				break;
-//			default:
-//				avaliableInstructions = levels.GetAvaliableTiles1();
-//				currentLevel = 0;
-//				break;
-//		}
 		avaliableInstructions = levels.GetLevel(currentLevel).GetAvaliableTiles();
 
 		gameUI.LoadAvaliableTiles(avaliableInstructions);
@@ -159,7 +142,7 @@ public class GameManagement : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-
+		
 		if (Input.GetKeyUp(KeyCode.Escape))
 		{
 			SceneManager.LoadScene("MenuNew");
@@ -175,7 +158,7 @@ public class GameManagement : MonoBehaviour
 			}
 		}
 		
-		if (fadeIn)
+		if (fadeIn && !initPlayerDeath)
 		{
 			float newAlpha = Mathf.Lerp(fadeImage.color.a, 0, Time.deltaTime*fadeSpeed);
 			fadeImage.color = new Color(0, 0, 0, newAlpha);
@@ -187,39 +170,52 @@ public class GameManagement : MonoBehaviour
 //				InitGame();
 			}
 		}
-
-		if (loadNextPhase && InInstructions && !gameUI.IsMessageDisplaying())
+		if (playerMechanics.GetMonsterStats().IsDead())
 		{
-			currentPhase++;
-			if (currentPhase >= levels.GetLevel(currentLevel).GetPhases().Count)
+			if (!initPlayerDeath)
 			{
-				currentPhase = 0;
-				currentLevel++;
-				PlayerPrefs.SetInt("player_health", 3);
-				PlayerPrefs.SetInt("enemy_health", 3+currentLevel);
-				SceneManager.LoadScene("VS");
+				fadeImage.gameObject.SetActive(true);
+				fadeImage.color = new Color(0, 0, 0, 0);
+				initPlayerDeath = true;
 			}
-			else
+			StartCoroutine(StartFadeToBlack());
+		}
+		else
+		{
+
+			if (loadNextPhase && InInstructions && !gameUI.IsMessageDisplaying())
+			{
+				currentPhase++;
+				if (currentPhase >= levels.GetLevel(currentLevel).GetPhases().Count)
+				{
+					currentPhase = 0;
+					currentLevel++;
+					PlayerPrefs.SetInt("player_health", 3);
+					PlayerPrefs.SetInt("enemy_health", 3 + currentLevel);
+					SceneManager.LoadScene("Victory");
+				}
+				else
+				{
+					PlayerPrefs.SetInt("player_health", playerMechanics.GetMonsterStats().Health);
+					PlayerPrefs.SetInt("enemy_health", enemyMechanics.GetMonsterStats().Health);
+				}
+
+				PlayerPrefs.SetInt("current_phase", currentPhase);
+				PlayerPrefs.SetInt("current_level", currentLevel);
+				gameUI.ShowWellDone();
+			}
+
+			if (!loadNextPhase && replayPhase && InInstructions && !gameUI.IsMessageDisplaying())
 			{
 				PlayerPrefs.SetInt("player_health", playerMechanics.GetMonsterStats().Health);
-				PlayerPrefs.SetInt("enemy_health", enemyMechanics.GetMonsterStats().Health);
+				gameUI.ShowTryAgain();
 			}
-			PlayerPrefs.SetInt("current_phase", currentPhase);
-			PlayerPrefs.SetInt("current_level", currentLevel);
-			gameUI.ShowWellDone();
-		}
 
-		if (!loadNextPhase && replayPhase && InInstructions && !gameUI.IsMessageDisplaying())
-		{
-			PlayerPrefs.SetInt("player_health", playerMechanics.GetMonsterStats().Health);
-			gameUI.ShowTryAgain();
+			if (gameUI.IsMessageTimerFinished() && gameUI.IsMessageDisplaying())
+			{
+				SceneManager.LoadScene("GameNewPhase");
+			}
 		}
-		
-		if (gameUI.IsMessageTimerFinished() && gameUI.IsMessageDisplaying())
-		{
-			SceneManager.LoadScene("GameNewPhase");	
-		}
-		
 	}
 	
 	public void ShowInstructionUI()
@@ -357,4 +353,20 @@ public class GameManagement : MonoBehaviour
 	{
 		return loadNextPhase;
 	}
+
+	IEnumerator StartFadeToBlack()
+	{
+		yield return new WaitForSeconds(1.5f);
+		StartCoroutine(FadeToBlack());
+	}
+	
+	IEnumerator FadeToBlack()
+	{
+		float a = fadeImage.color.a;
+		float newAlpha = Mathf.Lerp(a, 1, Time.deltaTime*5f);
+		fadeImage.color = new Color(0, 0, 0, newAlpha);
+		yield return new WaitForSeconds(1.5f);
+		SceneManager.LoadScene("Death");
+	}
+	
 }

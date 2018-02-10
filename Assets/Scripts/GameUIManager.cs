@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
@@ -179,7 +180,7 @@ public class GameUIManager : MonoBehaviour
 		// BG
 		Color bColor = currentMessage.transform.GetChild(0).GetComponent<Image>().color;
 		float a = currentMessage.transform.GetChild(0).GetComponent<Image>().color.a;
-		bColor.a = Mathf.Lerp(bColor.a, 1f, Time.deltaTime * lerpSpeed);
+		bColor.a = Mathf.Lerp(bColor.a, 0.5f, Time.deltaTime * lerpSpeed);
 		this.currentMessage.transform.GetChild(0).GetComponent<Image>().color = bColor;
 		//Text
 		bColor = currentMessage.transform.GetChild(1).GetComponent<Text>().color;
