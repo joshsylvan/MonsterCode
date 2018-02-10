@@ -30,7 +30,7 @@ public class GameManagement : MonoBehaviour
 	public static int currentLevel, currentPhase, playerMonster;
 	private List<int> avaliableInstructions;
 
-	private bool loadNextPhase = false, replayPhase = false, initPlayerDeath = false;
+	private bool loadNextPhase = false, replayPhase = false, initPlayerDeath = false, initVictory = false,  victory = false;
 	
 	private float cameraZoomoutCooldown, ogCameraZoomoutCooldown = 1.5f;
 	private bool cameraZooming = false;
@@ -178,7 +178,16 @@ public class GameManagement : MonoBehaviour
 				fadeImage.color = new Color(0, 0, 0, 0);
 				initPlayerDeath = true;
 			}
-			StartCoroutine(StartFadeToBlack());
+			StartCoroutine(StartFadeToBlack(false));
+		} else if (victory)
+		{
+			if (!initVictory)
+			{
+				fadeImage.gameObject.SetActive(true);
+				fadeImage.color = new Color(0, 0, 0, 0);
+				initVictory = true;
+			}
+			StartCoroutine(FadeToBlack(true));
 		}
 		else
 		{
@@ -192,7 +201,8 @@ public class GameManagement : MonoBehaviour
 					currentLevel++;
 					PlayerPrefs.SetInt("player_health", 3);
 					PlayerPrefs.SetInt("enemy_health", 3 + currentLevel);
-					SceneManager.LoadScene("Victory");
+					fadeIn = false;
+					victory = true;
 				}
 				else
 				{
@@ -202,7 +212,10 @@ public class GameManagement : MonoBehaviour
 
 				PlayerPrefs.SetInt("current_phase", currentPhase);
 				PlayerPrefs.SetInt("current_level", currentLevel);
-				gameUI.ShowWellDone();
+				if (!victory)
+				{
+					gameUI.ShowWellDone();
+				}
 			}
 
 			if (!loadNextPhase && replayPhase && InInstructions && !gameUI.IsMessageDisplaying())
@@ -354,19 +367,26 @@ public class GameManagement : MonoBehaviour
 		return loadNextPhase;
 	}
 
-	IEnumerator StartFadeToBlack()
+	IEnumerator StartFadeToBlack(bool victory)
 	{
 		yield return new WaitForSeconds(1.5f);
-		StartCoroutine(FadeToBlack());
+		StartCoroutine(FadeToBlack(victory));
 	}
 	
-	IEnumerator FadeToBlack()
+	IEnumerator FadeToBlack(bool victory)
 	{
 		float a = fadeImage.color.a;
 		float newAlpha = Mathf.Lerp(a, 1, Time.deltaTime*5f);
 		fadeImage.color = new Color(0, 0, 0, newAlpha);
 		yield return new WaitForSeconds(1.5f);
-		SceneManager.LoadScene("Death");
+		if (victory)
+		{
+			SceneManager.LoadScene("Victory");
+		}
+		else
+		{
+			SceneManager.LoadScene("Death");
+		}
 	}
 	
 }

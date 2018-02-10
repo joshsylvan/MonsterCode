@@ -29,8 +29,8 @@ public class Levels
 			"Skeleton", 
 			new List<List<int>>(){
 				new List<int> {3, 3},
-				new List<int> {3, 3, 1},
-				new List<int> {3, 4, 3, 3, 1}
+//				new List<int> {3, 3, 1},
+//				new List<int> {3, 4, 3, 3, 1}
 			},
 			new List<int>() {1, 1, 1},
 			new List<int>() { 0, 1, 2, 3, 4}

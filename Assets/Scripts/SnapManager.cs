@@ -41,6 +41,55 @@ public class SnapManager : MonoBehaviour {
 		
 		if (this.isMoving)
 		{
+//			if (tilesToLerp.Count <= 1)
+//			{
+//				Vector2 newPos = Vector2.Lerp(tileToLerp.transform.position, (Vector2)transform.position,
+//					Time.deltaTime * this.lerpSpeed);
+//				this.tileToLerp.transform.position = newPos;
+//				if (Vector2.Distance(newPos, this.transform.position) <= minTileDistance)
+//				{
+//					this.isMoving = false;
+////					this.tileToLerp = null;
+//				}
+//			}
+//			else
+//			{
+//				if (GameManager.inInstructions)
+//				{
+//					float highestDistance = 0f;
+//					for (int i = 0; i < tilesToLerp.Count; i++)
+//					{
+//						if (i == 0)
+//						{
+//							Vector2 newPos = Vector2.Lerp(tilesToLerp[i].transform.position,
+//								transform.position,
+//								Time.deltaTime * this.lerpSpeed);
+//							this.tilesToLerp[i].transform.position = newPos;
+//							if (highestDistance <= Vector2.Distance(newPos, this.transform.position))
+//							{
+//								highestDistance = Vector2.Distance(newPos, this.transform.position);
+//							}
+//						}
+//						else
+//						{
+//							Vector2 newPos = Vector2.Lerp(tilesToLerp[i].transform.position,
+//								tilesToLerp[i - 1].transform.GetChild(0).position,
+//								Time.deltaTime * this.lerpSpeed);
+//							this.tilesToLerp[i].transform.position = newPos;
+//							if (highestDistance <= Vector2.Distance(newPos, tilesToLerp[i - 1].transform.GetChild(0).position))
+//							{
+//								highestDistance = Vector2.Distance(newPos, tilesToLerp[i - 1].transform.GetChild(0).position);
+//							}
+//						}
+//
+//						if (highestDistance <= 0.0001f)
+//						{
+//							this.isMoving = false;
+////							this.tileToLerp = null;
+//						}
+//					}
+//				}
+//			}
 			if (tilesToLerp.Count <= 1)
 			{
 				Vector2 newPos = Vector2.Lerp(tileToLerp.transform.position, (Vector2)transform.position,
@@ -54,10 +103,10 @@ public class SnapManager : MonoBehaviour {
 			}
 			else
 			{
-				if (GameManager.inInstructions)
+				float highestDistance = 0f;
+				for (int i = 0; i < tilesToLerp.Count; i++)
 				{
-					float highestDistance = 0f;
-					for (int i = 0; i < tilesToLerp.Count; i++)
+					if (tilesToLerp[i] != null)
 					{
 						if (i == 0)
 						{
@@ -81,12 +130,11 @@ public class SnapManager : MonoBehaviour {
 								highestDistance = Vector2.Distance(newPos, tilesToLerp[i - 1].transform.GetChild(0).position);
 							}
 						}
-
-						if (highestDistance <= 0.0001f)
-						{
-							this.isMoving = false;
-							this.tileToLerp = null;
-						}
+					}
+					if (highestDistance <= 0.0001f)
+					{
+						this.isMoving = false;
+						this.tileToLerp = null;
 					}
 				}
 			}

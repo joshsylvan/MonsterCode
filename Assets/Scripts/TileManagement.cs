@@ -4,8 +4,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using UnityEngine;
 
-public class TileManagement : MonoBehaviour {
-
+public class TileManagement : MonoBehaviour
+{
+	private GameObject tilePreviews;
+	
 	private GameObject rootNode;
 	private GameObject selectedTile;
 	private Vector2 tileOffset;
@@ -16,6 +18,7 @@ public class TileManagement : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+		tilePreviews = transform.GetChild(2).gameObject;
 		rootNode = transform.GetChild(0).gameObject;
 	}
 	
@@ -29,7 +32,22 @@ public class TileManagement : MonoBehaviour {
 			Vector2 point = new Vector2(pos_at_z_0.x,pos_at_z_0.y);
 			RaycastHit2D hit = Physics2D.Raycast(point, Vector2.zero);
 			
-			if( hit.collider != null && hit.collider.CompareTag("Tile") && hit.collider.name != "RootNode")
+			if( hit.collider != null && hit.collider.CompareTag("TilePreview"))
+			{
+				GameObject tile = Resources.Load("Prefab/Tiles/" + GetTileName(hit.collider.name)) as GameObject;
+				tile = Instantiate(tile);
+				tile.SetActive(false);
+				tile.transform.parent = tilePreviews.transform.parent.GetChild(1);
+				tile.transform.localScale = Vector3.one;
+				Vector2 newPos = new Vector2(
+					point.x - (1.6f*tile.transform.parent.parent.localScale.x), 
+					point.y);
+				tile.transform.position = newPos;
+				tile.SetActive(true);
+				SetSelectedTile(tile);
+				tileOffset = (Vector2) (selectedTile.transform.position - new Vector3(point.x, point.y, 0));
+			} 
+			else if( hit.collider != null && hit.collider.CompareTag("Tile") && hit.collider.name != "RootNode")
 			{
 				if (hit.collider.GetComponent<TileStats>().GetRightTile() == null)
 				{
@@ -43,7 +61,7 @@ public class TileManagement : MonoBehaviour {
 					connectedTiles = GetConnectedTiles(hit.collider.GetComponent<TileStats>());
 				} 
 			}
-		} 
+		}
 		else if (Input.GetMouseButton(0))
 		{
 			if (selectedTile != null)
@@ -51,11 +69,12 @@ public class TileManagement : MonoBehaviour {
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				float z_plane_of_2d_game = 0;
 				Vector3 pos_at_z_0 = ray.origin + ray.direction * (z_plane_of_2d_game - ray.origin.z) / ray.direction.z;
-				Vector2 point = new Vector2(pos_at_z_0.x,pos_at_z_0.y);
+				Vector2 point = new Vector2(pos_at_z_0.x, pos_at_z_0.y);
 				Vector2 newPos = point;
+//				tileOffset = (Vector2) (selectedTile.transform.position - new Vector3(point.x, point.y, 0));
 				if (connectedTiles == null)
 				{
-					selectedTile.transform.position = newPos + tileOffset;
+					selectedTile.transform.position = newPos + tileOffset;	
 				}
 				else
 				{
@@ -134,5 +153,26 @@ public class TileManagement : MonoBehaviour {
 	public void SetSelectedTile(GameObject selectedTile)
 	{
 		this.selectedTile = selectedTile;
+	}
+	
+	private string GetTileName(string name)
+	{
+		switch (name)
+		{
+			case "DefencePreview":
+				return "DefendTile";
+			case "FightPreview":
+				return "FightTile";
+			case "LeftPreview":
+				return "LeftTile";
+			case "RightPreview":
+				return "RightTile";
+			case "JumpPreview":
+				return "JumpTile";
+			case "SpecialPreview":
+				return "SpecialTile";
+			default:
+				return "DefendTile";
+		}
 	}
 }

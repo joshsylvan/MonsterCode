@@ -1,8 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters;
-using JetBrains.Annotations;
-using NUnit.Framework.Internal.Execution;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -31,7 +27,6 @@ public class DeathScreen : MonoBehaviour
 	{
 		if (SceneManager.GetActiveScene().name == "Death")
 		{
-//			PlayerPrefs.SetString("player_character", "Undead");
 			GameObject playerObject = Resources.Load<GameObject>("Prefab/Monsters/" + PlayerPrefs.GetString("player_character"));
 			playerObject = Instantiate(playerObject);
 			playerObject.transform.SetParent(player.transform);
@@ -52,7 +47,6 @@ public class DeathScreen : MonoBehaviour
 			fadeIn = true;
 			menuAnim = GetComponent<Animator>();
 			deathText.text = "Victory! You completed level " + (PlayerPrefs.GetInt("current_level")) + ".";
-		
 		}
 	}
 	
@@ -106,7 +100,14 @@ public class DeathScreen : MonoBehaviour
 	{
 		float a = fadeInImage.color.a;
 		float newAlpha = Mathf.Lerp(a, 1, Time.deltaTime * fadeSpeed);
-		fadeInImage.color = new Color(fadeInImage.color.r, fadeInImage.color.g, fadeInImage.color.b, newAlpha);
+		if (SceneManager.GetActiveScene().name == "Death")
+		{
+			fadeInImage.color = new Color(fadeInImage.color.r, fadeInImage.color.g, fadeInImage.color.b, newAlpha);
+		}
+		else
+		{
+			fadeInImage.color = new Color(0, 0, 0, newAlpha);
+		}
 		yield return new WaitForSeconds(1.5f);
 		if (SceneManager.GetActiveScene().name == "Death")
 		{
