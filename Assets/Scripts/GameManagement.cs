@@ -54,15 +54,19 @@ public class GameManagement : MonoBehaviour
 		GameObject pO = Resources.Load("Prefab/Monsters/" + PlayerPrefs.GetString("player_character")) as GameObject;
 		pO = Instantiate(pO);
 		Vector3 scale = pO.transform.localScale;
+		Vector3 pos = pO.transform.localPosition;
 		pO.transform.SetParent(playerObject.transform);
+		pO.transform.localPosition = pos;
 		pO.transform.localScale = scale;
 
 		Debug.Log(levels.GetLevel(currentLevel).GetEnemyName());
 		GameObject eo = Resources.Load("Prefab/Enemies/" + levels.GetLevel(currentLevel).GetEnemyName()) as GameObject;
 		eo = Instantiate(eo);
-		Vector3 scaleEnemy = eo.transform.localScale;
+		Vector3 posenemy = eo.transform.localPosition;
+		Debug.Log(posenemy);
 		eo.transform.SetParent(enemyObject.transform);
-		eo.transform.localScale = scale;
+		eo.transform.localPosition = posenemy;
+		eo.transform.localScale = new Vector3(Mathf.Abs(eo.transform.localScale.x), eo.transform.localScale.y, eo.transform.localScale.z);
 		
 		currentLevel = PlayerPrefs.GetInt("current_level");
 		currentPhase = PlayerPrefs.GetInt("current_phase");

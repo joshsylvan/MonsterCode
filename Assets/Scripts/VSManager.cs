@@ -20,13 +20,15 @@ public class VSManager : MonoBehaviour
 		
 		GameObject player = Resources.Load("Prefab/Monsters/" + PlayerPrefs.GetString("player_character")) as GameObject;
 		player = Instantiate(player);
+		Vector3 pos = player.transform.localPosition;
 		player.transform.SetParent(playerPreview.transform);
-		player.transform.localPosition = Vector3.zero;
+		player.transform.localPosition = pos;
 		
 		GameObject enemy = Resources.Load("Prefab/Enemies/" + levels.GetLevel(PlayerPrefs.GetInt("current_level")).GetEnemyName()) as GameObject;
 		enemy = Instantiate(enemy);
+		Vector3 posE = player.transform.localPosition;
 		enemy.transform.SetParent(enemyPreview.transform);
-		enemy.transform.localPosition = Vector3.zero;
+		enemy.transform.localPosition = posE;
 		enemy.transform.localScale = new Vector3(Mathf.Abs(enemy.transform.localScale.x), enemy.transform.localScale.y, enemy.transform.localScale.y);
 
 

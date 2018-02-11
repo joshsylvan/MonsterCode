@@ -168,10 +168,10 @@ public class GameUIManager : MonoBehaviour
 			GameObject monsterTile = Instantiate(monsterTiles[instructions[i]]);
 			monsterTile.transform.SetParent(tileObject.transform.GetChild(4).GetChild(0));
 			monsterTile.transform.position = new Vector3(0, 0 ,0);
-			monsterTile.transform.localPosition = new Vector3(-3+i, 0 ,0);
+			monsterTile.transform.localPosition = new Vector3(i, 0 ,0);
 			monsterTile.transform.localScale = new Vector3(0.25f, 0.25f , 0.25f);
 		}
-		tileObject.transform.GetChild(4).GetChild(0).localPosition = new Vector3( ((float) instructions.Count)/2f, 0, 0);
+		tileObject.transform.GetChild(4).GetChild(0).localPosition = new Vector3( -((float) instructions.Count)/2f, 0, 0);
 	
 	}
 

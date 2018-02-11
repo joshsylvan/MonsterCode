@@ -29,8 +29,9 @@ public class DeathScreen : MonoBehaviour
 		{
 			GameObject playerObject = Resources.Load<GameObject>("Prefab/Monsters/" + PlayerPrefs.GetString("player_character"));
 			playerObject = Instantiate(playerObject);
+			Vector3 pos = playerObject.transform.localPosition;
 			playerObject.transform.SetParent(player.transform);
-			playerObject.transform.localPosition = Vector3.zero;
+			playerObject.transform.localPosition = pos;
 			playerAnim = playerObject.GetComponent<Animator>();
 			fadeIn = true;
 			menuAnim = GetComponent<Animator>();
@@ -41,8 +42,9 @@ public class DeathScreen : MonoBehaviour
 			Levels levels = new Levels();
 			GameObject playerObject = Resources.Load<GameObject>("Prefab/Enemies/" + (levels.GetLevel( PlayerPrefs.GetInt("current_level")-1).GetEnemyName() ));
 			playerObject = Instantiate(playerObject);
+			Vector3 pos = playerObject.transform.localPosition;
 			playerObject.transform.SetParent(player.transform);
-			playerObject.transform.localPosition = Vector3.zero;
+			playerObject.transform.localPosition = pos;
 			playerAnim = playerObject.GetComponent<Animator>();
 			fadeIn = true;
 			menuAnim = GetComponent<Animator>();
