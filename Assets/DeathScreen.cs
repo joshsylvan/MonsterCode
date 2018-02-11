@@ -35,7 +35,7 @@ public class DeathScreen : MonoBehaviour
 			playerAnim = playerObject.GetComponent<Animator>();
 			fadeIn = true;
 			menuAnim = GetComponent<Animator>();
-			deathText.text = "You died on level " + (PlayerPrefs.GetString("current_level") + 1) + ".";
+			deathText.text = "You died on level " + (PlayerPrefs.GetInt("current_level") + 1) + ".";
 		}
 		else
 		{

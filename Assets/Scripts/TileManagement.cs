@@ -132,7 +132,7 @@ public class TileManagement : MonoBehaviour
 		}
 		else
 		{
-			return new List<int>(){0};
+			return new List<int>(){-1};
 		}
 	}
 

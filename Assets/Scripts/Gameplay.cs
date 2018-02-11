@@ -155,6 +155,9 @@ public class Gameplay : MonoBehaviour
 							playerMechanics.GetInstructions().RemoveFirst();
 							playerMechanics.MovePlayerDown();
 							break;
+						default:
+							playerMechanics.PlayerDefendEnd();
+							break;
 					}
 
 					if (playerMechanics.IsPlayerInAir())
@@ -176,7 +179,7 @@ public class Gameplay : MonoBehaviour
 				{
 					playerMechanics.PlayerDefendEnd();
 				}
-
+				
 				if (enemyMechanics.GetInstructions().Count > 0)
 				{
 					enemyMechanics.EnemyDefendEnd();

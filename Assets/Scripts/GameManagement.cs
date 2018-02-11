@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -63,7 +64,6 @@ public class GameManagement : MonoBehaviour
 		GameObject eo = Resources.Load("Prefab/Enemies/" + levels.GetLevel(currentLevel).GetEnemyName()) as GameObject;
 		eo = Instantiate(eo);
 		Vector3 posenemy = eo.transform.localPosition;
-		Debug.Log(posenemy);
 		eo.transform.SetParent(enemyObject.transform);
 		eo.transform.localPosition = posenemy;
 		eo.transform.localScale = new Vector3(Mathf.Abs(eo.transform.localScale.x), eo.transform.localScale.y, eo.transform.localScale.z);
@@ -256,8 +256,15 @@ public class GameManagement : MonoBehaviour
 	
 	LinkedList<int> ParseInstructions(List<int> instructions)
 	{
+		Debug.Log(instructions[0] + " : INST COUNT");
 		bool skip = false;
 		LinkedList<int> instructionQueue = new LinkedList<int>();
+//		if (instructions[0] == -1)
+//		{
+////			instructionQueue.AddFirst(-1);
+//			Debug.Log(instructionQueue.First.Value + " : Count : " + instructionQueue.Count);
+////			return instructionQueue;
+//		}
 		for (int i = 0; i < instructions.Count; i++)
 		{
 			if (!skip)

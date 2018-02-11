@@ -10,7 +10,7 @@ public class EnemyMechanics : MonoBehaviour {
 	private bool isEnemyJumpting = false;
 	private float movementSpeed = 5f;
 	private float minimumDistance = 0.1f;
-	private int enemyDirection = 1;
+	private int enemyDirection = -1;
 	private LinkedList<int> enemyInstructions;
 	
 	private MonsterStats monsterStats;
@@ -42,6 +42,8 @@ public class EnemyMechanics : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+//		Debug.Log("Enemy pos : " + this.monsterStats.GetXPosition());
+		
 		if (damageAnimationQueued)
 		{
 			this.damageAnimationCooldown -= Time.deltaTime;
@@ -156,27 +158,23 @@ public class EnemyMechanics : MonoBehaviour {
 	{
 		attacking = true;
 		anim.SetTrigger("Attack");
+		Debug.Log("1");
 		if(gm.InBounds(monsterStats.GetXPosition()+enemyDirection, monsterStats.GetYPosition()))
 		{
+			Debug.Log("dir : " + enemyDirection);
+			
 			if (gm.GetPlayerMechanics().GetMonsterStats().GetXPosition() == monsterStats.GetXPosition() + enemyDirection &&
 			    gm.GetPlayerMechanics().GetMonsterStats().GetYPosition() == monsterStats.GetYPosition())
 			{
+				Debug.Log("3");
 				if (!gm.GetPlayerMechanics().IsPlayerDefending())
 				{
+					Debug.Log("4");
 					gm.GetPlayerMechanics().GetMonsterStats().DamageMonster(1);
 					gm.SetPlayerHealth(gm.GetPlayerMechanics().GetMonsterStats().Health);
 					gm.ZoomIntoAttack();
 					gm.GetPlayerMechanics().QueueDamageAnimation();
 				}
-
-//				if (enemyDirection == 1)
-//				{
-//					gm.GetPlayerMechanics().GetInstructions().AddFirst(4);
-//				}
-//				else if(enemyDirection == -1)
-//				{
-//					gm.GetPlayerMechanics().GetInstructions().AddFirst(3);
-//				}
 			}
 		}
 	}

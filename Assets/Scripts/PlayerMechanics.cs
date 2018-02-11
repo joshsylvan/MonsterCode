@@ -37,10 +37,14 @@ public class PlayerMechanics : MonoBehaviour
 		{
 			anim = this.transform.GetChild(0).GetComponent<Animator>();
 		}
+		this.PlayerDefendEnd();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
+//		Debug.Log("Player pos : " + this.monsterStats.GetXPosition());
+		
 		if (damageAnimationQueued)
 		{
 			this.damageAnimationCooldown -= Time.deltaTime;
@@ -162,14 +166,15 @@ public class PlayerMechanics : MonoBehaviour
 		if (gm.InBounds(monsterStats.GetXPosition() + playerDirection, monsterStats.GetYPosition()))
 		{
 			if (gm.GetEnemyMechanics().GetMonsterStats().GetXPosition() == monsterStats.GetXPosition() + playerDirection &&
-			    gm.GetEnemyMechanics().GetMonsterStats().GetYPosition() == monsterStats.GetYPosition() &&
-			    !gm.GetEnemyMechanics().IsEnemyDefending())
+			    gm.GetEnemyMechanics().GetMonsterStats().GetYPosition() == monsterStats.GetYPosition())
 			{
-				gm.GetEnemyMechanics().GetMonsterStats().DamageMonster(1);
-				gm.SetEnemyHealth(gm.GetEnemyMechanics().GetMonsterStats().Health);
-//				this.loadNextPhase = true;
-				gm.ZoomIntoAttack();
-				gm.GetEnemyMechanics().QueueDamageAnimation();
+				if (!gm.GetEnemyMechanics().IsEnemyDefending())
+				{
+					gm.GetEnemyMechanics().GetMonsterStats().DamageMonster(1);
+					gm.SetEnemyHealth(gm.GetEnemyMechanics().GetMonsterStats().Health);
+					gm.ZoomIntoAttack();
+					gm.GetEnemyMechanics().QueueDamageAnimation();
+				}
 //				gm.LoadNextPhase();
 
 //				if (playerDirection == 1)
@@ -212,7 +217,7 @@ public class PlayerMechanics : MonoBehaviour
 
 	public bool IsPlayerDefending()
 	{
-		return isPlayerDefending;
+		return this.isPlayerDefending;
 	}
 
 	public bool IsPlayerInAir()
