@@ -26,7 +26,7 @@ public class Levels
 //		};
 		levelsNew = new List<Level>();
 		levelsNew.Add( new Level( 
-			"Undead", 
+			"Knight", 
 			new List<List<int>>(){
 				new List<int> {3, 3},
 				new List<int> {3, 3, 1},

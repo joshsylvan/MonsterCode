@@ -3,25 +3,22 @@
   <component name="ChangeListManager">
     <list default="true" id="31c73b58-1932-4b6a-bb8f-e0f3324f0443" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MonsterCode/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/.idea.MonsterCode/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Assets/DeathScreen.cs" afterPath="$PROJECT_DIR$/Assets/DeathScreen.cs" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Animations/a_Skeleton_Attack.anim" afterPath="$PROJECT_DIR$/Assets/Resources/Animations/a_Skeleton_Attack.anim" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Animations/a_Skeleton_Damage.anim" afterPath="$PROJECT_DIR$/Assets/Resources/Animations/a_Skeleton_Damage.anim" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefab/Enemies/Knight.prefab" afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Enemies/Knight.prefab" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefab/Enemies/Skeleton.prefab" afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Enemies/Skeleton.prefab" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animation Testing.unity" afterPath="$PROJECT_DIR$/Assets/Animation Testing.unity" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Animations/a_Undead_Attack.anim" afterPath="$PROJECT_DIR$/Assets/Resources/Animations/a_Undead_Attack.anim" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Animations/a_Undead_Damage.anim" afterPath="$PROJECT_DIR$/Assets/Resources/Animations/a_Undead_Damage.anim" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Animations/a_Undead_Walk.anim" afterPath="$PROJECT_DIR$/Assets/Resources/Animations/a_Undead_Walk.anim" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefab/Enemies/Elder Undead.prefab" afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Enemies/Elder Undead.prefab" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefab/Enemies/Undead.prefab" afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Enemies/Undead.prefab" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefab/Monsters/Skeleton.prefab" afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Monsters/Skeleton.prefab" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Skeleton/Skeleton Attack.png.meta" afterPath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Skeleton/Skeleton Attack.png.meta" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Skeleton/Skeleton Dead.png.meta" afterPath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Skeleton/Skeleton Dead.png.meta" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Skeleton/Skeleton Hit.png.meta" afterPath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Skeleton/Skeleton Hit.png.meta" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Skeleton/Skeleton Idle.png.meta" afterPath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Skeleton/Skeleton Idle.png.meta" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Skeleton/Skeleton Walk.png.meta" afterPath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Skeleton/Skeleton Walk.png.meta" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameNew.unity" afterPath="$PROJECT_DIR$/Assets/Scenes/GameNew.unity" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefab/Monsters/Undead.prefab" afterPath="$PROJECT_DIR$/Assets/Resources/Prefab/Monsters/Undead.prefab" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Undead Sprite Pack/undead_attack_sheet.png.meta" afterPath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Undead Sprite Pack/undead_attack_sheet.png.meta" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Undead Sprite Pack/undead_death_sheet.png.meta" afterPath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Undead Sprite Pack/undead_death_sheet.png.meta" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Undead Sprite Pack/undead_hurt_sheet.png.meta" afterPath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Undead Sprite Pack/undead_hurt_sheet.png.meta" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Undead Sprite Pack/undead_idle_sheet.png.meta" afterPath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Undead Sprite Pack/undead_idle_sheet.png.meta" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Undead Sprite Pack/undead_walk_sheet.png.meta" afterPath="$PROJECT_DIR$/Assets/Resources/Sprites/Monsters/Undead Sprite Pack/undead_walk_sheet.png.meta" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MenuNew.unity" afterPath="$PROJECT_DIR$/Assets/Scenes/MenuNew.unity" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Victory.unity" afterPath="$PROJECT_DIR$/Assets/Scenes/Victory.unity" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManagement.cs" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManagement.cs" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameUIManager.cs" afterPath="$PROJECT_DIR$/Assets/Scripts/GameUIManager.cs" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Levels.cs" afterPath="$PROJECT_DIR$/Assets/Scripts/Levels.cs" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VSManager.cs" afterPath="$PROJECT_DIR$/Assets/Scripts/VSManager.cs" />
+      <change beforePath="$PROJECT_DIR$/Assets/a_UndeadDeath.anim" afterPath="$PROJECT_DIR$/Assets/a_UndeadDeath.anim" />
+      <change beforePath="$PROJECT_DIR$/Assets/a_UndeadDeath_Idle.anim" afterPath="$PROJECT_DIR$/Assets/a_UndeadDeath_Idle.anim" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -74,21 +71,21 @@
       <file leaf-file-name="Levels.cs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/Levels.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="27" column="30" lean-forward="false" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+            <state relative-caret-position="405">
+              <caret line="29" column="33" lean-forward="true" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
               <folding>
-                <marker date="1518369947678" expanded="false" signature="6:88" ph="..." />
-                <marker date="1518369947678" expanded="true" signature="109:2366" ph="{...}" />
-                <marker date="1518369947678" expanded="true" signature="325:2024" ph="{...}" />
-                <marker date="1518369947678" expanded="true" signature="329:581" ph="/* avaliableTiles1 = new List&lt;int&gt;() ... */" />
-                <marker date="1518369947678" expanded="true" signature="682:777" ph="{...}" />
-                <marker date="1518369947678" expanded="true" signature="854:1094" ph="/* avaliableTiles2 = new List&lt;int&gt;() ... */" />
-                <marker date="1518369947678" expanded="true" signature="1165:1286" ph="{...}" />
-                <marker date="1518369947678" expanded="true" signature="1366:1646" ph="/* avaliableTiles3 = new List&lt;int&gt;() ... */" />
-                <marker date="1518369947678" expanded="true" signature="1714:1864" ph="{...}" />
-                <marker date="1518369947678" expanded="true" signature="1947:2021" ph="/* levels.Add(level_1); ... */" />
-                <marker date="1518369947678" expanded="true" signature="2059:2118" ph="{...}" />
-                <marker date="1518369947678" expanded="true" signature="2120:2364" ph="/* public List&lt;int&gt; GetAvaliableTiles1() ... */" />
+                <marker date="1518371654655" expanded="false" signature="6:88" ph="..." />
+                <marker date="1518371654655" expanded="true" signature="109:2366" ph="{...}" />
+                <marker date="1518371654655" expanded="true" signature="325:2024" ph="{...}" />
+                <marker date="1518371654655" expanded="true" signature="329:581" ph="/* avaliableTiles1 = new List&lt;int&gt;() ... */" />
+                <marker date="1518371654655" expanded="true" signature="682:777" ph="{...}" />
+                <marker date="1518371654655" expanded="true" signature="854:1094" ph="/* avaliableTiles2 = new List&lt;int&gt;() ... */" />
+                <marker date="1518371654655" expanded="true" signature="1165:1286" ph="{...}" />
+                <marker date="1518371654655" expanded="true" signature="1366:1646" ph="/* avaliableTiles3 = new List&lt;int&gt;() ... */" />
+                <marker date="1518371654655" expanded="true" signature="1714:1864" ph="{...}" />
+                <marker date="1518371654655" expanded="true" signature="1947:2021" ph="/* levels.Add(level_1); ... */" />
+                <marker date="1518371654655" expanded="true" signature="2059:2118" ph="{...}" />
+                <marker date="1518371654655" expanded="true" signature="2120:2364" ph="/* public List&lt;int&gt; GetAvaliableTiles1() ... */" />
               </folding>
             </state>
           </provider>
@@ -142,7 +139,7 @@
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/VSManager.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="69">
-              <caret line="9" column="50" lean-forward="true" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
+              <caret line="9" column="50" lean-forward="false" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
               <folding>
                 <marker date="1518369869865" expanded="false" signature="6:101" ph="..." />
                 <marker date="1518369869865" expanded="true" signature="141:1593" ph="{...}" />
@@ -581,12 +578,12 @@
       <workItem from="1516744232816" duration="5715000" />
       <workItem from="1518117835994" duration="3208000" />
       <workItem from="1518173490071" duration="24556000" />
-      <workItem from="1518363985921" duration="4395000" />
+      <workItem from="1518363985921" duration="4893000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="115152000" />
+    <option name="totallyTimeSpent" value="115650000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1226,7 +1223,7 @@
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/VSManager.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
-          <caret line="9" column="50" lean-forward="true" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
+          <caret line="9" column="50" lean-forward="false" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
           <folding>
             <marker date="1518369869865" expanded="false" signature="6:101" ph="..." />
             <marker date="1518369869865" expanded="true" signature="141:1593" ph="{...}" />
@@ -1283,21 +1280,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/Levels.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="27" column="30" lean-forward="false" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+        <state relative-caret-position="405">
+          <caret line="29" column="33" lean-forward="true" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
           <folding>
-            <marker date="1518369947678" expanded="false" signature="6:88" ph="..." />
-            <marker date="1518369947678" expanded="true" signature="109:2366" ph="{...}" />
-            <marker date="1518369947678" expanded="true" signature="325:2024" ph="{...}" />
-            <marker date="1518369947678" expanded="true" signature="329:581" ph="/* avaliableTiles1 = new List&lt;int&gt;() ... */" />
-            <marker date="1518369947678" expanded="true" signature="682:777" ph="{...}" />
-            <marker date="1518369947678" expanded="true" signature="854:1094" ph="/* avaliableTiles2 = new List&lt;int&gt;() ... */" />
-            <marker date="1518369947678" expanded="true" signature="1165:1286" ph="{...}" />
-            <marker date="1518369947678" expanded="true" signature="1366:1646" ph="/* avaliableTiles3 = new List&lt;int&gt;() ... */" />
-            <marker date="1518369947678" expanded="true" signature="1714:1864" ph="{...}" />
-            <marker date="1518369947678" expanded="true" signature="1947:2021" ph="/* levels.Add(level_1); ... */" />
-            <marker date="1518369947678" expanded="true" signature="2059:2118" ph="{...}" />
-            <marker date="1518369947678" expanded="true" signature="2120:2364" ph="/* public List&lt;int&gt; GetAvaliableTiles1() ... */" />
+            <marker date="1518371654655" expanded="false" signature="6:88" ph="..." />
+            <marker date="1518371654655" expanded="true" signature="109:2366" ph="{...}" />
+            <marker date="1518371654655" expanded="true" signature="325:2024" ph="{...}" />
+            <marker date="1518371654655" expanded="true" signature="329:581" ph="/* avaliableTiles1 = new List&lt;int&gt;() ... */" />
+            <marker date="1518371654655" expanded="true" signature="682:777" ph="{...}" />
+            <marker date="1518371654655" expanded="true" signature="854:1094" ph="/* avaliableTiles2 = new List&lt;int&gt;() ... */" />
+            <marker date="1518371654655" expanded="true" signature="1165:1286" ph="{...}" />
+            <marker date="1518371654655" expanded="true" signature="1366:1646" ph="/* avaliableTiles3 = new List&lt;int&gt;() ... */" />
+            <marker date="1518371654655" expanded="true" signature="1714:1864" ph="{...}" />
+            <marker date="1518371654655" expanded="true" signature="1947:2021" ph="/* levels.Add(level_1); ... */" />
+            <marker date="1518371654655" expanded="true" signature="2059:2118" ph="{...}" />
+            <marker date="1518371654655" expanded="true" signature="2120:2364" ph="/* public List&lt;int&gt; GetAvaliableTiles1() ... */" />
           </folding>
         </state>
       </provider>
