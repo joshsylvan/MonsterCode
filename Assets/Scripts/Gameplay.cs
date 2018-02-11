@@ -128,6 +128,7 @@ public class Gameplay : MonoBehaviour
 			{
 				if (playerMechanics.GetInstructions().Count > 0)
 				{
+					playerMechanics.PlayerDefendEnd();
 					switch (playerMechanics.GetInstructions().First.Value)
 					{
 						case 6:
@@ -166,14 +167,19 @@ public class Gameplay : MonoBehaviour
 							}
 
 					}
-				}
+				} 
 				else if (playerMechanics.IsPlayerInAir())
 				{
 					playerMechanics.GetInstructions().AddFirst(1);
 				}
+				else
+				{
+					playerMechanics.PlayerDefendEnd();
+				}
 
 				if (enemyMechanics.GetInstructions().Count > 0)
 				{
+					enemyMechanics.EnemyDefendEnd();
 					switch (enemyMechanics.GetInstructions().First.Value)
 					{
 						case 6:
@@ -216,6 +222,10 @@ public class Gameplay : MonoBehaviour
 				else if (enemyMechanics.IsEnemyInAir())
 				{
 					enemyMechanics.GetInstructions().AddFirst(1);
+				}
+				else
+				{
+					enemyMechanics.EnemyDefendEnd();
 				}
 			}
 		}

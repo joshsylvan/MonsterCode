@@ -82,6 +82,7 @@ public class GameplayMechanics : MonoBehaviour
 
 	public void LoadLevel(int playerX, int playerY, int enemyX, int enemyY, List<int> enemyInstructions)
 	{
+		Debug.Log(playerX + " : player X");
 		this.playerObject.transform.position = arenaCells[playerY, playerX].transform.position;
 		this.arenaCellData[playerY, playerX] = 2;
 		this.playerStats.GetMonsterStats().SetPosition(playerX, playerY);

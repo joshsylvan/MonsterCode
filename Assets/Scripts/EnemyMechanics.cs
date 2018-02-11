@@ -161,10 +161,14 @@ public class EnemyMechanics : MonoBehaviour {
 			if (gm.GetPlayerMechanics().GetMonsterStats().GetXPosition() == monsterStats.GetXPosition() + enemyDirection &&
 			    gm.GetPlayerMechanics().GetMonsterStats().GetYPosition() == monsterStats.GetYPosition())
 			{
-				gm.GetPlayerMechanics().GetMonsterStats().DamageMonster(1);
-				gm.SetPlayerHealth(gm.GetPlayerMechanics().GetMonsterStats().Health);
-				gm.ZoomIntoAttack();
-				gm.GetPlayerMechanics().QueueDamageAnimation();
+				if (!gm.GetPlayerMechanics().IsPlayerDefending())
+				{
+					gm.GetPlayerMechanics().GetMonsterStats().DamageMonster(1);
+					gm.SetPlayerHealth(gm.GetPlayerMechanics().GetMonsterStats().Health);
+					gm.ZoomIntoAttack();
+					gm.GetPlayerMechanics().QueueDamageAnimation();
+				}
+
 //				if (enemyDirection == 1)
 //				{
 //					gm.GetPlayerMechanics().GetInstructions().AddFirst(4);
@@ -197,6 +201,11 @@ public class EnemyMechanics : MonoBehaviour {
 	public void EnemyDefend()
 	{
 		this.isEnemyDefending = true;
+	}
+	
+	public void EnemyDefendEnd()
+	{
+		this.isEnemyDefending = false;
 	}
 	
 	public bool IsEnemyInAir()

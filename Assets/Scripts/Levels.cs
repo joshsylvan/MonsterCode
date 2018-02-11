@@ -13,78 +13,93 @@ public class Levels
 	
 	public Levels()
 	{
-//		avaliableTiles1 = new List<int>()
-//		{
-//			0, 1, 2, 3, 4
-//		};
-//		
-//		levels = new List<List<List<int>>>();
-//		level_1 = new List<List<int>>(){
-//			new List<int> {3, 3},
-//			new List<int> {3, 3, 1},
-//			new List<int> {3, 4, 3, 3, 1}
-//		};
 		levelsNew = new List<Level>();
 		levelsNew.Add( new Level( 
-			"Knight", 
+			"Skeleton", 
 			new List<List<int>>(){
-				new List<int> {3, 3},
-				new List<int> {3, 3, 1},
-				new List<int> {3, 4, 3, 3, 1}
+				new List<int> {3},
+				new List<int> {3, 1, 1},
+				new List<int> {0, 0, 0},
+				new List<int> {3, 3, 1, 1}
 			},
-			new List<int>() {1, 1, 1},
-			new List<int>() { 0, 1, 2, 3, 4}
+			new List<int>() {1, 1, 1, 1},
+			new List<int>() {0, 1, 2, 3},
+			new int[2] {1, 5},
+			new int[2] {4, 5}
 		));
-		
-//		avaliableTiles2 = new List<int>()
-//		{
-//			0, 1, 2, 3, 4, 5
-//		};
-//		
-//		level_2 = new List<List<int>>(){
-//			new List<int> {3, 3, 3},
-//			new List<int> {3, 3, 3},
-//			new List<int> {3, 3, 3},
-//			new List<int> {3, 3, 3}
-//		};
 		
 		levelsNew.Add( new Level( 
 			"Undead", 
 			new List<List<int>>(){
-				new List<int> {3, 3, 3},
-				new List<int> {3, 3, 3},
-				new List<int> {3, 3, 3},
-				new List<int> {3, 3, 3}
+				new List<int> {4, 3, 3, 1},
+				new List<int> {4, 3, 1, 1},
+				new List<int> {1, 1, 3, 1},
+				new List<int> {3, 1, 3, 1}
 			},
-			new List<int>() {1, 1, 2, 2},
-			new List<int>() { 0, 1, 2, 3, 4}
+			new List<int>() { 1, 1, 2, 2 },
+			new List<int>() { 0, 1, 2, 3 },
+			new int[2] {1, 5},
+			new int[2] {4, 5}
 		));
 		
-//		avaliableTiles3 = new List<int>()
-//		{
-//			0, 1, 2, 3, 4, 5
-//		};
-//		
-//		level_3 = new List<List<int>>()
-//		{
-//			new List<int> {3, 3, 3},
-//			new List<int> {3, 3, 3},
-//			new List<int> {3, 3, 3},
-//			new List<int> {3, 3, 3},
-//			new List<int> {3, 3, 3}
-//		};
-//		
 		levelsNew.Add( new Level( 
 			"Knight", 
 			new List<List<int>>(){
-				new List<int> {3, 3, 3},
-				new List<int> {3, 3, 3},
-				new List<int> {3, 3, 3},
-				new List<int> {3, 3, 3},
 				new List<int> {3, 3, 3}
+//				new List<int> {3, 3, 3},
+//				new List<int> {3, 3, 3},
+//				new List<int> {3, 3, 3},
+//				new List<int> {3, 3, 3}
 			},
 			new List<int>() {2, 2, 2, 3, 3},
-			new List<int>() { 0, 1, 2, 3, 4}
+			new List<int>() { 0, 1, 2, 3 },
+			new int[2] {1, 5},
+			new int[2] {4, 5}
+		));
+		
+		levelsNew.Add( new Level( 
+			"Shadow Skeleton", 
+			new List<List<int>>(){
+				new List<int> {3, 3, 3}
+//				new List<int> {3, 3, 3},
+//				new List<int> {3, 3, 3},
+//				new List<int> {3, 3, 3},
+//				new List<int> {3, 3, 3}
+			},
+			new List<int>() {2, 2, 2, 3, 3},
+			new List<int>() { 0, 1, 2, 3 },
+			new int[2] {1, 5},
+			new int[2] {4, 5}
+		));
+		
+		levelsNew.Add( new Level( 
+			"Elder Undead", 
+			new List<List<int>>(){
+				new List<int> {3, 3, 3}
+//				new List<int> {3, 3, 3},
+//				new List<int> {3, 3, 3},
+//				new List<int> {3, 3, 3},
+//				new List<int> {3, 3, 3}
+			},
+			new List<int>() {2, 2, 2, 3, 3},
+			new List<int>() { 0, 1, 2, 3 },
+			new int[2] {1, 5},
+			new int[2] {4, 5}
+		));
+		
+		levelsNew.Add( new Level( 
+			"Ancient Knight", 
+			new List<List<int>>(){
+				new List<int> {3, 3, 3}
+//				new List<int> {3, 3, 3},
+//				new List<int> {3, 3, 3},
+//				new List<int> {3, 3, 3},
+//				new List<int> {3, 3, 3}
+			},
+			new List<int>() {2, 2, 2, 3, 3},
+			new List<int>() { 0, 1, 2, 3 },
+			new int[2] {1, 5},
+			new int[2] {4, 5}
 		));
 		
 //		levels.Add(level_1);

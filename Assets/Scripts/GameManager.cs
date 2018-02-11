@@ -52,7 +52,12 @@ public class GameManager : MonoBehaviour
 		gameplayObject.SetActive(true);
 		menuCooldown = ogMenuCooldown;
 		gameplayMechanics.InitGame();
-		gameplayMechanics.LoadLevel(1, 5, 4, 5, levels.GetLevel(currentLevel).GetPhases()[currentLevelphase]);
+		gameplayMechanics.LoadLevel(
+			levels.GetLevel(currentLevel).GetPlayerPos()[0], 
+			levels.GetLevel(currentLevel).GetPlayerPos()[1], 
+			levels.GetLevel(currentLevel).GetEnemyPos()[0], 
+			levels.GetLevel(currentLevel).GetEnemyPos()[1], 
+			levels.GetLevel(currentLevel).GetPhases()[currentLevelphase]);
 	}
 
 	public void OnGoButtonClick(List<int> playerInstructions)

@@ -108,10 +108,13 @@ public class PlayerMechanics : MonoBehaviour
 		if (gm.InBounds(monsterStats.GetXPosition()-1, monsterStats.GetYPosition()) &&
 		    gm.GetArenaCellData()[monsterStats.GetYPosition(), monsterStats.GetXPosition()-1] == 0)
 		{
-			this.walking = true;
-			this.attacking = false;
-			anim.SetTrigger("Walk");
-			LerpPlayerTo(monsterStats.GetXPosition()-1, monsterStats.GetYPosition());
+			if (!gm.GetEnemyMechanics().IsEnemyDefending())
+			{
+				this.walking = true;
+				this.attacking = false;
+				anim.SetTrigger("Walk");
+				LerpPlayerTo(monsterStats.GetXPosition() - 1, monsterStats.GetYPosition());
+			}
 		}
 	}
 	
@@ -200,6 +203,16 @@ public class PlayerMechanics : MonoBehaviour
 	public void PlayerDefend()
 	{
 		this.isPlayerDefending = true;
+	}
+
+	public void PlayerDefendEnd()
+	{
+		this.isPlayerDefending = false;
+	}
+
+	public bool IsPlayerDefending()
+	{
+		return isPlayerDefending;
 	}
 
 	public bool IsPlayerInAir()

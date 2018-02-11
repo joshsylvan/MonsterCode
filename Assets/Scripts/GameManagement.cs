@@ -101,7 +101,12 @@ public class GameManagement : MonoBehaviour
 				}
 			}
 		}
-		LoadLevel(1, 5, 4, 5, levels.GetLevel(currentLevel).GetPhases()[currentPhase]);
+		LoadLevel(levels.GetLevel(currentLevel).GetPlayerPos()[0], 
+			levels.GetLevel(currentLevel).GetPlayerPos()[1], 
+			levels.GetLevel(currentLevel).GetEnemyPos()[0], 
+			levels.GetLevel(currentLevel).GetEnemyPos()[1], 
+			levels.GetLevel(currentLevel).GetPhases()[currentPhase]
+		);
 		if (SceneManager.GetActiveScene().name == "GameNewPhase")
 		{
 			fadeIn = true;
