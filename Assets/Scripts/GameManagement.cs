@@ -52,6 +52,9 @@ public class GameManagement : MonoBehaviour
 
 		levels = new Levels();
 		
+		currentLevel = PlayerPrefs.GetInt("current_level");
+		currentPhase = PlayerPrefs.GetInt("current_phase");
+		
 		GameObject pO = Resources.Load("Prefab/Monsters/" + PlayerPrefs.GetString("player_character")) as GameObject;
 		pO = Instantiate(pO);
 		Vector3 scale = pO.transform.localScale;
@@ -60,7 +63,6 @@ public class GameManagement : MonoBehaviour
 		pO.transform.localPosition = pos;
 		pO.transform.localScale = scale;
 
-		Debug.Log(levels.GetLevel(currentLevel).GetEnemyName());
 		GameObject eo = Resources.Load("Prefab/Enemies/" + levels.GetLevel(currentLevel).GetEnemyName()) as GameObject;
 		eo = Instantiate(eo);
 		Vector3 posenemy = eo.transform.localPosition;
@@ -68,8 +70,7 @@ public class GameManagement : MonoBehaviour
 		eo.transform.localPosition = posenemy;
 		eo.transform.localScale = new Vector3(Mathf.Abs(eo.transform.localScale.x), eo.transform.localScale.y, eo.transform.localScale.z);
 		
-		currentLevel = PlayerPrefs.GetInt("current_level");
-		currentPhase = PlayerPrefs.GetInt("current_phase");
+		
 
 		avaliableInstructions = levels.GetLevel(currentLevel).GetAvaliableTiles();
 

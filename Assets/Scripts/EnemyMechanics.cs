@@ -158,19 +158,15 @@ public class EnemyMechanics : MonoBehaviour {
 	{
 		attacking = true;
 		anim.SetTrigger("Attack");
-		Debug.Log("1");
 		if(gm.InBounds(monsterStats.GetXPosition()+enemyDirection, monsterStats.GetYPosition()))
 		{
-			Debug.Log("dir : " + enemyDirection);
 			
 			if (gm.GetPlayerMechanics().GetMonsterStats().GetXPosition() == monsterStats.GetXPosition() + enemyDirection &&
 			    gm.GetPlayerMechanics().GetMonsterStats().GetYPosition() == monsterStats.GetYPosition())
 			{
-				Debug.Log("3");
 				if (!gm.GetPlayerMechanics().IsPlayerDefending())
 				{
-					Debug.Log("4");
-					gm.GetPlayerMechanics().GetMonsterStats().DamageMonster(1);
+					gm.GetPlayerMechanics().GetMonsterStats().DamageMonster(1 + PlayerPrefs.GetInt("hard_mode"));
 					gm.SetPlayerHealth(gm.GetPlayerMechanics().GetMonsterStats().Health);
 					gm.ZoomIntoAttack();
 					gm.GetPlayerMechanics().QueueDamageAnimation();

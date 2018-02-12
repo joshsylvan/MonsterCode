@@ -8,6 +8,7 @@
       <e p="Assets" t="Include">
         <e p="CloudMovement.cs" t="Include" />
         <e p="DeathScreen.cs" t="Include" />
+        <e p="HardModeToggle.cs" t="Include" />
         <e p="LightningBolt" t="Include">
           <e p="Editor" t="Include">
             <e p="LightningBoltEditor.cs" t="Include" />

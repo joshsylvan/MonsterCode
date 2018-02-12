@@ -46,10 +46,10 @@ public class Levels
 		levelsNew.Add( new Level( 
 			"Undead", 
 			new List<List<int>>(){
-				new List<int> {4, 3, 3, 1},
-				new List<int> {4, 3, 1, 1},
+				new List<int> { 3, 3, 1},
+				new List<int> { 3, 1, 1, 4},
 				new List<int> {1, 1, 3, 1},
-				new List<int> {3, 1, 3, 1}
+				new List<int> {3, 1, 3, 1, 1, }
 			},
 			new List<int>() { 1, 1, 2, 2 },
 			new List<int>() { 0, 1, 2, 3 },
@@ -61,10 +61,10 @@ public class Levels
 			"Knight", 
 			new List<List<int>>(){
 				new List<int> {3, 3, 1, 0},
-				new List<int> {3, 0, 3, 1},
-				new List<int> {3, 3, 1, 4, 0},
-				new List<int> {3, 3, 1, 4, 0},
-				new List<int> {3, 0, 1, 0, 1}
+				new List<int> {3, 3, 0, 3, 1},
+				new List<int> {3, 3, 1, 4, 3, 1},
+				new List<int> {3, 3, 1, 4, 0, 3, 1},
+				new List<int> {3, 3, 1, 1, 4, 3, 1}
 			},
 			new List<int>() {2, 2, 2, 2, 3},
 			new List<int>() { 0, 1, 2, 3 },
@@ -75,57 +75,73 @@ public class Levels
 		levelsNew.Add( new Level( 
 			"Shadow Skeleton", 
 			new List<List<int>>(){
-				new List<int> {3, 3, 3}
-//				new List<int> {3, 3, 3},
-//				new List<int> {3, 3, 3},
-//				new List<int> {3, 3, 3},
-//				new List<int> {3, 3, 3}
+				new List<int> {1, 1, 4, 3, 0, 1},
+				new List<int> {4, 3, 1, 1, 0, 1},
+				new List<int> {1, 0, 1, 3, 1, 1},
+				new List<int> {0, 1, 1, 1, 3, 1},
+				new List<int> {3, 1, 4, 4, 3, 1}
 			},
 			new List<int>() {2, 2, 2, 3, 3},
 			new List<int>() { 0, 1, 2, 3 },
 			new int[2] {1, 5},
-			new int[2] {4, 5}
+			new int[2] {3, 5}
 		));
 		
 		levelsNew.Add( new Level( 
 			"Elder Undead", 
 			new List<List<int>>(){
-				new List<int> {3, 3, 3}
-//				new List<int> {3, 3, 3},
-//				new List<int> {3, 3, 3},
-//				new List<int> {3, 3, 3},
-//				new List<int> {3, 3, 3}
+				new List<int> {1, 1, 4, 4, 3, 1},
+				new List<int> {1, 4, 3, 1, 0, 4},
+				new List<int> {4, 4, 3, 1, 1, 1},
+				new List<int> {4, 4, 3, 1, 0, 1},
+				new List<int> {1, 4, 3, 1, 4, 4}
 			},
 			new List<int>() {2, 2, 2, 3, 3},
 			new List<int>() { 0, 1, 2, 3 },
-			new int[2] {1, 5},
-			new int[2] {4, 5}
+			new int[2] {0, 5},
+			new int[2] {1, 5}
 		));
 		
 		levelsNew.Add( new Level( 
 			"Ancient Knight", 
 			new List<List<int>>(){
+				new List<int> {3, 3, 3},
+				new List<int> {3, 3, 3},
+				new List<int> {3, 3, 3},
+				new List<int> {3, 3, 3},
 				new List<int> {3, 3, 3}
-//				new List<int> {3, 3, 3},
-//				new List<int> {3, 3, 3},
-//				new List<int> {3, 3, 3},
-//				new List<int> {3, 3, 3}
 			},
-			new List<int>() {2, 2, 2, 3, 3},
+			new List<int>() { 2, 2, 2, 3, 3 },
 			new List<int>() { 0, 1, 2, 3 },
 			new int[2] {1, 5},
-			new int[2] {4, 5}
+			new int[2] {3, 5}
 		));
 		
-//		levels.Add(level_1);
-//		levels.Add(level_2);
-//		levels.Add(level_3);
+		levelsNew.Add( new Level( 
+			"Ancient Knight", 
+			new List<List<int>>(){
+				new List<int> {1, 1, 0, 0, 1},
+				new List<int> {3, 1, 4, 3, 1, 0, 1},
+				new List<int> {1, 0, 1, 4, 3, 1},
+				new List<int> {4, 4, 3, 1, 1, 0, 1},
+				new List<int> {1, 1, 1, 4, 3, 1}
+			},
+			new List<int>() { 2, 2, 2, 3, 3 },
+			new List<int>() { 0, 1, 2, 3 },
+			new int[2] {1, 5},
+			new int[2] {3, 5}
+		));
 	}
 
 	public Level GetLevel(int index)
 	{
 //		return levels[index];
 		return levelsNew[index];
+	}
+
+	public int GetLevelCount()
+	{
+		return levelsNew.Count;
 	}
 
 //	public List<int> GetAvaliableTiles1()

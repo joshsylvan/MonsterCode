@@ -16,9 +16,12 @@ public class DeathScreen : MonoBehaviour
 	
 	float animationCountdown = 2.5f;
 
+	private Levels levels;
+
 
 	private void Awake()
 	{
+		levels = new Levels();
 		fadeImage.color = new Color(0, 0, 0, 1);
 	}
 
@@ -36,10 +39,9 @@ public class DeathScreen : MonoBehaviour
 			fadeIn = true;
 			menuAnim = GetComponent<Animator>();
 			deathText.text = "You died on level " + (PlayerPrefs.GetInt("current_level") + 1) + ".";
-		}
+		} 
 		else
 		{
-			Levels levels = new Levels();
 			GameObject playerObject = Resources.Load<GameObject>("Prefab/Enemies/" + (levels.GetLevel( PlayerPrefs.GetInt("current_level")-1).GetEnemyName() ));
 			playerObject = Instantiate(playerObject);
 			Vector3 pos = playerObject.transform.localPosition;
@@ -48,7 +50,14 @@ public class DeathScreen : MonoBehaviour
 			playerAnim = playerObject.GetComponent<Animator>();
 			fadeIn = true;
 			menuAnim = GetComponent<Animator>();
-			deathText.text = "Victory! You completed level " + (PlayerPrefs.GetInt("current_level")) + ".";
+			if (PlayerPrefs.GetInt("current_level") == levels.GetLevelCount())
+			{
+				deathText.text = "Amazing! You have slayed all of the monsters!\nYou have unlcocked 'Hard Mode'!";
+			}
+			else
+			{
+				deathText.text = "Victory! You completed level " + (PlayerPrefs.GetInt("current_level")) + ".";	
+			}
 		}
 	}
 	
@@ -117,7 +126,15 @@ public class DeathScreen : MonoBehaviour
 		}
 		else
 		{
-			SceneManager.LoadScene("VS");
+			if (PlayerPrefs.GetInt("current_level") == levels.GetLevelCount())
+			{
+				PlayerPrefs.SetInt("hard_mode", 1);
+				SceneManager.LoadScene("MenuNew");
+			}
+			else
+			{
+				SceneManager.LoadScene("VS");
+			}
 		}
 	}
 }
