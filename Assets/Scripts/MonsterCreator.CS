@@ -69,9 +69,9 @@ public class MonsterCreator : MonoBehaviour {
 				UpdatePlayerPreview(1);
 				break;
 			case 2:
+				legsIndex = ShiftIndexLeft(legsIndex);
 				UpdateSpritePreview(2);
 				UpdatePlayerPreview(2);
-				legsIndex = ShiftIndexLeft(legsIndex);
 				break;
 			default:
 				Debug.Log("ERROR: Not a valid body index!");

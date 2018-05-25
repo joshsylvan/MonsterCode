@@ -59,7 +59,7 @@ public class MonsterSelector : MonoBehaviour
 	
 	public void OnLeftArrowClick()
 	{
-		if (--selectionIndex <= 0)
+		if (--selectionIndex < 0)
 		{
 			selectionIndex = preview.transform.childCount-1;
 		}
