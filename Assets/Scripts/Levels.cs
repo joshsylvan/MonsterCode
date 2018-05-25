@@ -86,10 +86,11 @@ public class Levels
 			new int[2] {1, 5},
 			new int[2] {3, 5}
 		));
-		
-		levelsNew.Add( new Level( 
-			"Elder Undead", 
-			new List<List<int>>(){
+
+		levelsNew.Add(new Level(
+			"Elder Undead",
+			new List<List<int>>()
+			{
 				new List<int> {1, 1, 4, 4, 3, 1},
 				new List<int> {1, 4, 3, 1, 0, 4},
 				new List<int> {4, 4, 3, 1, 1, 1},
@@ -97,24 +98,9 @@ public class Levels
 				new List<int> {1, 4, 3, 1, 4, 4}
 			},
 			new List<int>() {2, 2, 2, 3, 3},
-			new List<int>() { 0, 1, 2, 3 },
+			new List<int>() {0, 1, 2, 3},
 			new int[2] {0, 5},
 			new int[2] {1, 5}
-		));
-		
-		levelsNew.Add( new Level( 
-			"Ancient Knight", 
-			new List<List<int>>(){
-				new List<int> {3, 3, 3},
-				new List<int> {3, 3, 3},
-				new List<int> {3, 3, 3},
-				new List<int> {3, 3, 3},
-				new List<int> {3, 3, 3}
-			},
-			new List<int>() { 2, 2, 2, 3, 3 },
-			new List<int>() { 0, 1, 2, 3 },
-			new int[2] {1, 5},
-			new int[2] {3, 5}
 		));
 		
 		levelsNew.Add( new Level( 

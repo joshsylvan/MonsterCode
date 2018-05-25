@@ -12,6 +12,7 @@ public class MonsterSelector : MonoBehaviour
 	public GameObject preview;
 	public Image fadeImage;
 	public int selectionIndex = 0;
+	public HardModeToggle hm;
 
 	private bool fadeOut = false;
 	private float fadeSpeed = 5f;
@@ -82,7 +83,9 @@ public class MonsterSelector : MonoBehaviour
 				PlayerPrefs.SetString("player_character", "Knight");
 				break;
 		}
+
 		PlayerPrefs.SetInt("current_level", 0);
+		
 		PlayerPrefs.SetInt("current_phase", 0);
 		PlayerPrefs.SetInt("player_health", 3);
 		PlayerPrefs.SetInt("enemy_health", 3);
