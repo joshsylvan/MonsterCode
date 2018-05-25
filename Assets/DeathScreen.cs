@@ -56,8 +56,9 @@ public class DeathScreen : MonoBehaviour
 			}
 			else
 			{
-				deathText.text = "Victory! You completed level " + (PlayerPrefs.GetInt("current_level")) + ".";	
+				deathText.text = "Victory! You completed level " + (PlayerPrefs.GetInt("current_level")) + ".";
 			}
+			PlayerPrefs.SetInt("completed_level_" + (PlayerPrefs.GetInt("current_level")-1), 1);
 		}
 	}
 	

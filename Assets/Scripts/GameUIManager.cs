@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
 {
-
+	
 	public GameObject playerHealth, enemyHealth, tileObject;
 	public GameObject countDown, wellDoneObject, tryAgainObject;
 	public GameObject[] monsterTiles;
@@ -29,6 +29,13 @@ public class GameUIManager : MonoBehaviour
 
 	private void Awake()
 	{
+		
+//		PlayerPrefs.SetInt("current_level", 0);
+//		PlayerPrefs.SetInt("current_phase", 0);
+//		PlayerPrefs.SetInt("player_health", 3);
+//		PlayerPrefs.SetInt("enemy_health", 3);
+//		PlayerPrefs.SetString("player_character", "Knight");
+		
 //		this.rootNode = tileObject.transform.GetChild(0).gameObject;
 		this.tilePreview = tileObject.transform.GetChild(2).gameObject;
 //		this.deleteTile = tileObject.transform.GetChild(3).gameObject;

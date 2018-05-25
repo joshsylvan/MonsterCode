@@ -9,6 +9,7 @@
         <e p="CloudMovement.cs" t="Include" />
         <e p="DeathScreen.cs" t="Include" />
         <e p="HardModeToggle.cs" t="Include" />
+        <e p="LevelSelectMenu.cs" t="Include" />
         <e p="LightningBolt" t="Include">
           <e p="Editor" t="Include">
             <e p="LightningBoltEditor.cs" t="Include" />
@@ -49,6 +50,7 @@
           <e p="TreesRotating.cs" t="Include" />
           <e p="VSManager.cs" t="Include" />
         </e>
+        <e p="SettingsMenu.cs" t="Include" />
       </e>
       <e p="Library" t="ExcludeRecursive" />
       <e p="MonsterCode.sln" t="IncludeFlat" />

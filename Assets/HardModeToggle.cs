@@ -70,7 +70,7 @@ public class HardModeToggle : MonoBehaviour
 //			PlayerPrefs.SetInt("current_level", 6);
 //			hasChanged = true;
 //		} 
-	} 
+	}
 
 	public bool HasChanged
 	{

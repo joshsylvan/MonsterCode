@@ -11,12 +11,24 @@ TextureImporter:
     21300012: s_BackButton_in
     21300014: s_LevelButton
     21300016: s_LevelButton_in
-    21300018: s_YellowButton
-    21300020: s_YellowButton_in
-    21300022: s_GreenButton
-    21300024: s_GreenButton_in
-    21300026: s_RedButton_in
-    21300028: s_RedButton
+    21300018: s_YellowButton_3
+    21300020: s_YellowButton_3_in
+    21300022: s_GreenButton_1
+    21300024: s_GreenButton_1_in
+    21300026: s_RedButton_5_in
+    21300028: s_RedButton_5
+    21300030: s_GreenButton_2
+    21300032: s_GreenButton_2_in
+    21300034: s_YellowButton_4
+    21300036: s_YellowButton_4_in
+    21300038: s_RedButton_6_in
+    21300040: s_RedButton_6
+    21300042: s_ButtonLocked
+    21300044: s_ButtonLocked_in
+    21300046: s_settings
+    21300048: s_settings_in
+    21300050: s_deleteSave
+    21300052: s_deleteSave_in
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -299,7 +311,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: s_YellowButton
+      name: s_YellowButton_3
       rect:
         serializedVersion: 2
         x: 128
@@ -307,7 +319,7 @@ TextureImporter:
         width: 15
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -319,7 +331,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: s_YellowButton_in
+      name: s_YellowButton_3_in
       rect:
         serializedVersion: 2
         x: 128
@@ -327,7 +339,7 @@ TextureImporter:
         width: 15
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -339,7 +351,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: s_GreenButton
+      name: s_GreenButton_1
       rect:
         serializedVersion: 2
         x: 144
@@ -347,7 +359,7 @@ TextureImporter:
         width: 15
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -359,7 +371,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: s_GreenButton_in
+      name: s_GreenButton_1_in
       rect:
         serializedVersion: 2
         x: 144
@@ -367,7 +379,7 @@ TextureImporter:
         width: 15
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -379,7 +391,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: s_RedButton_in
+      name: s_RedButton_5_in
       rect:
         serializedVersion: 2
         x: 160
@@ -387,7 +399,7 @@ TextureImporter:
         width: 15
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -399,12 +411,232 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: s_RedButton
+      name: s_RedButton_5
       rect:
         serializedVersion: 2
         x: 160
         y: 80
         width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b03d121b350c4bc1b718744ba640a06
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: s_GreenButton_2
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 47
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fa70041dfc0148b9b4fd07753b89afb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: s_GreenButton_2_in
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 31
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 441aa59131b96428f8e213f8ac29ea2c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: s_YellowButton_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 47
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7fb05e02ae83451c825945cfb3d9e15
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: s_YellowButton_4_in
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 31
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d72bdf656ad9c41abbe04ae865488433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: s_RedButton_6_in
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 31
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7ac4b1321ba543b39b16ed81ad309dd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: s_RedButton_6
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 47
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8645b96c91c140139c7e9fe971ea1ff
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: s_ButtonLocked
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 80
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0179acc9d372489196d19f0a1ecc92c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: s_ButtonLocked_in
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 64
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5d575db2c5ab43ae95c9bc947348e4c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: s_settings
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 37
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 747cda74ccc2948e9954ddaacb9bdd16
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: s_settings_in
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 37
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c55d36058211047c587ed1ebf9e1dcab
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: s_deleteSave
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 51
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -413,7 +645,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b03d121b350c4bc1b718744ba640a06
+      spriteID: 8317b6e03a60b449ba3a1208fc8b5b27
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: s_deleteSave_in
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 51
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fc45f1588f6343d2b638a80d7b16b7c
       vertices: []
       indices: 
       edges: []

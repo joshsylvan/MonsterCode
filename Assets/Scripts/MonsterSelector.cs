@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class MonsterSelector : MonoBehaviour
 {
-
+	public LevelSelectMenu LevelSelectMenu;
 
 	public GameObject preview;
 	public Image fadeImage;
@@ -68,7 +68,7 @@ public class MonsterSelector : MonoBehaviour
 
 	public void StartGame()
 	{
-		switch (this.selectionIndex)
+		switch (selectionIndex)
 		{
 			case 0:
 				PlayerPrefs.SetString("player_character", "Skeleton");
@@ -84,9 +84,11 @@ public class MonsterSelector : MonoBehaviour
 				break;
 		}
 
-		PlayerPrefs.SetInt("current_level", 0);
-		
-		PlayerPrefs.SetInt("current_phase", 0);
+		if (!LevelSelectMenu.HasChangedLevel())
+		{
+			PlayerPrefs.SetInt("current_level", 0);
+			PlayerPrefs.SetInt("current_phase", 0);
+		}
 		PlayerPrefs.SetInt("player_health", 3);
 		PlayerPrefs.SetInt("enemy_health", 3);
 //		SceneManager.LoadScene("GameNew");
